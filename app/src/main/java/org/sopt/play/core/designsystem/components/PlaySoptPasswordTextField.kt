@@ -8,9 +8,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.foundation.text.BasicSecureTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.material3.Text
@@ -34,27 +33,26 @@ fun PlaySoptPasswordTextField(
     label: String,
     modifier: Modifier = Modifier,
     placeholder: String = "",
-    keyboardType: KeyboardType = KeyboardType.Email,
+    keyboardType: KeyboardType = KeyboardType.Password,
     imeAction: ImeAction = ImeAction.Default,
-    lineLimits: TextFieldLineLimits = TextFieldLineLimits.SingleLine,
     isError: Boolean = false,
     errorLabel: String? = null,
 ) {
+    var isFocused by remember { mutableStateOf(false) }
+
+    val textFieldTextStyle = PlaySoptTheme.typography.m18
+    val borderColor = when {
+        isError -> PlaySoptTheme.colors.red
+        isFocused -> PlaySoptTheme.colors.gray5
+        else -> PlaySoptTheme.colors.gray2
+    }
+    val shape = RoundedCornerShape(12.dp)
+    val startPadding = 6.dp
+
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
-        var isFocused by remember { mutableStateOf(false) }
-
-        val textFieldTextStyle = PlaySoptTheme.typography.m18
-        val borderColor = when {
-            isError -> PlaySoptTheme.colors.red
-            isFocused -> PlaySoptTheme.colors.gray5
-            else -> PlaySoptTheme.colors.gray2
-        }
-        val shape = RoundedCornerShape(12.dp)
-        val startPadding = 6.dp
-
         Text(
             text = label,
             modifier = Modifier.padding(start = startPadding),
@@ -62,7 +60,7 @@ fun PlaySoptPasswordTextField(
             style = PlaySoptTheme.typography.sb16
         )
 
-        BasicTextField(
+        BasicSecureTextField(
             state = state,
             modifier = Modifier
                 .fillMaxWidth()
@@ -78,10 +76,10 @@ fun PlaySoptPasswordTextField(
                 ),
             keyboardOptions = KeyboardOptions(
                 keyboardType = keyboardType,
-                imeAction = imeAction
+                imeAction = imeAction,
+                autoCorrectEnabled = false,
             ),
             textStyle = textFieldTextStyle.copy(color = PlaySoptTheme.colors.gray5),
-            lineLimits = lineLimits,
             decorator = { innerTextField ->
                 Box(
                     modifier = Modifier.padding(16.dp),
@@ -111,12 +109,15 @@ fun PlaySoptPasswordTextField(
 
 @Preview(showBackground = true)
 @Composable
-private fun MomensTextFieldPreview() {
+private fun PlaySoptPasswordTextFieldPreview() {
     PlaySoptTheme {
-        val notEnteredState = rememberTextFieldState()
-        val enteredState = rememberTextFieldState(initialText = "text")
-        val textCountState = rememberTextFieldState(initialText = "text")
-        val textErrorState = rememberTextFieldState(initialText = "texttexttexttext")
+        val emptyState = rememberTextFieldState()
+        val enteredState = rememberTextFieldState(
+            initialText = "password123!",
+        )
+        val errorState = rememberTextFieldState(
+            initialText = "abc",
+        )
 
         Column(
             modifier = Modifier
@@ -124,18 +125,23 @@ private fun MomensTextFieldPreview() {
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            PlaySoptTextField(
-                state = notEnteredState,
-                label = "id",
-                modifier = Modifier,
-                placeholder = "id 입력 바람"
+            PlaySoptPasswordTextField(
+                state = emptyState,
+                label = "비밀번호",
+                placeholder = "비밀번호를 입력해주세요",
+                imeAction = ImeAction.Next,
             )
 
-            PlaySoptTextField(
+            PlaySoptPasswordTextField(
                 state = enteredState,
-                label = "id",
-                modifier = Modifier,
-                placeholder = "id 입력 바람"
+                label = "비밀번호",
+            )
+
+            PlaySoptPasswordTextField(
+                state = errorState,
+                label = "비밀번호",
+                isError = true,
+                errorLabel = "비밀번호 조건을 확인해주세요.",
             )
         }
     }

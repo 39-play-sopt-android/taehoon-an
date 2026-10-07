@@ -41,21 +41,21 @@ fun PlaySoptTextField(
     isError: Boolean = false,
     errorLabel: String? = null,
 ) {
+    var isFocused by remember { mutableStateOf(false) }
+
+    val textFieldTextStyle = PlaySoptTheme.typography.m18
+    val borderColor = when {
+        isError -> PlaySoptTheme.colors.red
+        isFocused -> PlaySoptTheme.colors.gray5
+        else -> PlaySoptTheme.colors.gray2
+    }
+    val shape = RoundedCornerShape(12.dp)
+    val startPadding = 6.dp
+
     Column(
         modifier = modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
-        var isFocused by remember { mutableStateOf(false) }
-
-        val textFieldTextStyle = PlaySoptTheme.typography.m18
-        val borderColor = when {
-            isError -> PlaySoptTheme.colors.red
-            isFocused -> PlaySoptTheme.colors.gray5
-            else -> PlaySoptTheme.colors.gray2
-        }
-        val shape = RoundedCornerShape(12.dp)
-        val startPadding = 6.dp
-
         Text(
             text = label,
             modifier = Modifier.padding(start = startPadding),
