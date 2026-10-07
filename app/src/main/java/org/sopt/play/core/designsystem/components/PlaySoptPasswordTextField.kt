@@ -121,11 +121,11 @@ fun PlaySoptPasswordTextField(
 private fun PlaySoptPasswordTextFieldPreview() {
     PlaySoptTheme {
         val emptyState = rememberTextFieldState()
-        val enteredState = rememberTextFieldState(
-            initialText = "password123!",
+        val validState = rememberTextFieldState(
+            initialText = "abc123",
         )
-        val errorState = rememberTextFieldState(
-            initialText = "abc",
+        val invalidState = rememberTextFieldState(
+            initialText = "abc12",
         )
 
         Column(
@@ -134,24 +134,25 @@ private fun PlaySoptPasswordTextFieldPreview() {
                 .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            PlaySoptPasswordTextField(
-                state = emptyState,
-                label = "비밀번호",
-                placeholder = "비밀번호를 입력해주세요",
-                imeAction = ImeAction.Next,
-            )
+            listOf(
+                emptyState,
+                validState,
+                invalidState,
+            ).forEach { state ->
+                val password = state.text.toString()
+                val isError = password.isNotEmpty() &&
+                        password.length < 6
 
-            PlaySoptPasswordTextField(
-                state = enteredState,
-                label = "비밀번호",
-            )
-
-            PlaySoptPasswordTextField(
-                state = errorState,
-                label = "비밀번호",
-                isError = true,
-                errorLabel = "비밀번호 조건을 확인해주세요.",
-            )
+                PlaySoptPasswordTextField(
+                    state = state,
+                    label = "비밀번호",
+                    placeholder = "6자 이상의 입력해주세요",
+                    keyboardType = KeyboardType.Password,
+                    imeAction = ImeAction.Done,
+                    isError = isError,
+                    errorLabel = "비밀번호는 6자 이상 입력해주세요.",
+                )
+            }
         }
     }
 }

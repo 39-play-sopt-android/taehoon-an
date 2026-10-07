@@ -1,5 +1,6 @@
 package org.sopt.play.core.designsystem.components
 
+import android.util.Patterns
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -120,14 +121,14 @@ fun PlaySoptTextField(
 
 @Preview(showBackground = true)
 @Composable
-private fun PlaySoptPasswordTextFieldPreview() {
+private fun PlaySoptTextFieldPreview() {
     PlaySoptTheme {
         val emptyState = rememberTextFieldState()
         val validState = rememberTextFieldState(
-            initialText = "abc123",
+            initialText = "abc@email.com",
         )
         val invalidState = rememberTextFieldState(
-            initialText = "abc12",
+            initialText = "abc.com",
         )
 
         Column(
@@ -141,18 +142,19 @@ private fun PlaySoptPasswordTextFieldPreview() {
                 validState,
                 invalidState,
             ).forEach { state ->
-                val password = state.text.toString()
-                val isError = password.isNotEmpty() &&
-                        password.length < 6
+                val email = state.text.toString()
+                val isError = email.isNotEmpty() &&
+                        !Patterns.EMAIL_ADDRESS.matcher(email).matches()
 
-                PlaySoptPasswordTextField(
+
+                PlaySoptTextField(
                     state = state,
-                    label = "비밀번호",
-                    placeholder = "6자 이상의 입력해주세요",
-                    keyboardType = KeyboardType.Password,
+                    label = "이메일",
+                    placeholder = "abc@email.com",
+                    keyboardType = KeyboardType.Email,
                     imeAction = ImeAction.Done,
                     isError = isError,
-                    errorLabel = "비밀번호는 6자 이상 입력해주세요.",
+                    errorLabel = "잘못된 이메일입니다.",
                 )
             }
         }
