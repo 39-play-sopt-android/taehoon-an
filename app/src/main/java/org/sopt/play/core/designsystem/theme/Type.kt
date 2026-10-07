@@ -58,7 +58,7 @@ val defaultPlaySoptTypography = PlaySoptTypography(
     m14 = TextStyle(
         fontFamily = pretendardFontFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 18.sp,
+        fontSize = 14.sp,
         lineHeight = TypographyDefaults.MLineHeight,
         letterSpacing = TypographyDefaults.MLetterSpacing
     ),
