@@ -1,9 +1,10 @@
-package org.sopt.play.presentation.login
+package org.sopt.play.presentation.login.ui
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.util.Patterns
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -24,12 +25,12 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.sopt.play.MainActivity
 import org.sopt.play.core.designsystem.components.PlaySoptPasswordTextField
 import org.sopt.play.core.designsystem.components.PlaySoptTextField
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.presentation.login.component.LoginScreenBottomComponent
-import org.sopt.play.presentation.login.ui.RegisterActivity
+import org.sopt.play.presentation.main.MainActivity
+import org.sopt.play.presentation.register.ui.RegisterActivity
 
 class LoginActivity : ComponentActivity() {
     private var registeredEmail: String? = null
@@ -37,7 +38,14 @@ class LoginActivity : ComponentActivity() {
     private val registerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
     ) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
+        Log.d(
+            "LoginDebug",
+            "resultCode=${result.resultCode}, " +
+                    "hasEmail=${result.data?.hasExtra("email")}, " +
+                    "hasPassword=${result.data?.hasExtra("password")}",
+        )
+
+        if (result.resultCode == RESULT_OK) {
             val email = result.data?.getStringExtra("email") ?: return@registerForActivityResult
             val password = result.data?.getStringExtra("password")?: return@registerForActivityResult
 
@@ -58,11 +66,19 @@ class LoginActivity : ComponentActivity() {
                             .background(color = PlaySoptTheme.colors.white)
                             .padding(innerPadding),
                         onLoginClick = { email, password ->
+                            Log.d(
+                                "LoginDebug",
+                                "hasAccount=${registeredEmail != null && registeredPassword != null}, " +
+                                        "emailMatches=${email == registeredEmail}, " +
+                                        "passwordMatches=${password == registeredPassword}",
+                            )
                             if(email == registeredEmail && password == registeredPassword) {
                                 val intent = Intent(this@LoginActivity, MainActivity::class.java).apply {
                                     flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                 }
                                 this.startActivity(intent)
+                            } else {
+                                Toast.makeText(this@LoginActivity, "이메일 또는 비밀번호가 올바르지 않아요.", Toast.LENGTH_SHORT).show()
                             }
                         }, // if문을 통해 분기처리 하기 (성공시 main, 실패시 toast)
                         onRegisterClick = {
