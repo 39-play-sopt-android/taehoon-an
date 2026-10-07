@@ -32,12 +32,17 @@ import org.sopt.play.presentation.login.component.LoginScreenBottomComponent
 import org.sopt.play.presentation.login.ui.RegisterActivity
 
 class LoginActivity : ComponentActivity() {
+    private var registeredEmail: String? = null
+    private var registeredPassword: String? = null
     private val registerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val email = result.data?.getStringExtra("email") ?: return@registerForActivityResult
             val password = result.data?.getStringExtra("password")?: return@registerForActivityResult
+
+            registeredEmail = email
+            registeredPassword = password
         }
     }
 
@@ -53,7 +58,7 @@ class LoginActivity : ComponentActivity() {
                             .background(color = PlaySoptTheme.colors.white)
                             .padding(innerPadding),
                         onLoginClick = { email, password ->
-                            if(email == email&&password == password) {
+                            if(email == registeredEmail && password == registeredPassword) {
                                 val intent = Intent(this@LoginActivity, MainActivity::class.java).apply {
                                     flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                                 }
@@ -139,7 +144,7 @@ fun LoginScreen(
                     passwordState.text.toString(),
                 )
             },
-            onRegisterClick = { },
+            onRegisterClick = { onRegisterClick() },
             modifier = Modifier,
         )
     }
