@@ -1,6 +1,5 @@
 package org.sopt.play.core.designsystem.components
 
-import android.util.Patterns
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -23,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,6 +41,7 @@ fun PlaySoptTextField(
     isError: Boolean = false,
     errorLabel: String? = null,
 ) {
+    val focusManager = LocalFocusManager.current
     var isFocused by remember { mutableStateOf(false) }
 
     val textFieldTextStyle = PlaySoptTheme.typography.m18
@@ -81,6 +82,13 @@ fun PlaySoptTextField(
                 keyboardType = keyboardType,
                 imeAction = imeAction
             ),
+            onKeyboardAction = { performDefaultAction ->
+                performDefaultAction()
+
+                if (imeAction == ImeAction.Done) {
+                    focusManager.clearFocus()
+                }
+            },
             textStyle = textFieldTextStyle.copy(color = PlaySoptTheme.colors.gray5),
             lineLimits = lineLimits,
             decorator = { innerTextField ->
@@ -112,14 +120,14 @@ fun PlaySoptTextField(
 
 @Preview(showBackground = true)
 @Composable
-private fun PlaySoptTextFieldPreview() {
+private fun PlaySoptPasswordTextFieldPreview() {
     PlaySoptTheme {
         val emptyState = rememberTextFieldState()
         val validState = rememberTextFieldState(
-            initialText = "test@example.com",
+            initialText = "abc123",
         )
         val invalidState = rememberTextFieldState(
-            initialText = "invalid-email",
+            initialText = "abc12",
         )
 
         Column(
@@ -133,19 +141,18 @@ private fun PlaySoptTextFieldPreview() {
                 validState,
                 invalidState,
             ).forEach { state ->
-                val email = state.text.toString()
-                val isError = email.isNotEmpty() &&
-                        !Patterns.EMAIL_ADDRESS.matcher(email).matches()
+                val password = state.text.toString()
+                val isError = password.isNotEmpty() &&
+                        password.length < 6
 
-
-                PlaySoptTextField(
+                PlaySoptPasswordTextField(
                     state = state,
-                    label = "이메일",
-                    placeholder = "이메일을 입력해주세요",
-                    keyboardType = KeyboardType.Email,
+                    label = "비밀번호",
+                    placeholder = "6자 이상의 입력해주세요",
+                    keyboardType = KeyboardType.Password,
                     imeAction = ImeAction.Done,
                     isError = isError,
-                    errorLabel = "잘못된 이메일입니다.",
+                    errorLabel = "비밀번호는 6자 이상 입력해주세요.",
                 )
             }
         }
