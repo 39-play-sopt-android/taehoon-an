@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
@@ -38,6 +39,7 @@ fun PlaySoptPasswordTextField(
     isError: Boolean = false,
     errorLabel: String? = null,
 ) {
+    val focusManager = LocalFocusManager.current
     var isFocused by remember { mutableStateOf(false) }
 
     val textFieldTextStyle = PlaySoptTheme.typography.m18
@@ -79,6 +81,13 @@ fun PlaySoptPasswordTextField(
                 imeAction = imeAction,
                 autoCorrectEnabled = false,
             ),
+            onKeyboardAction = { performDefaultAction ->
+                performDefaultAction()
+
+                if (imeAction == ImeAction.Done) {
+                    focusManager.clearFocus()
+                }
+            },
             textStyle = textFieldTextStyle.copy(color = PlaySoptTheme.colors.gray5),
             decorator = { innerTextField ->
                 Box(
