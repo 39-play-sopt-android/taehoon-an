@@ -12,14 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PlaySopt">
         <activity
-            android:name=".MainActivity"
+            android:name=".presentation.main.MainActivity"
             android:exported="false"
             android:label="@string/app_name"
             android:theme="@style/Theme.PlaySopt"
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".presentation.login.LoginActivity"
+            android:name=".presentation.login.ui.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.PlaySopt"
@@ -32,7 +32,7 @@
         </activity>
 
         <activity
-            android:name=".presentation.login.ui.RegisterActivity"
+            android:name=".presentation.register.ui.RegisterActivity"
             android:exported="false"
             android:label="@string/title_activity_register"
             android:theme="@style/Theme.PlaySopt"
