@@ -38,9 +38,9 @@ class RegisterActivity : ComponentActivity() {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     RegisterScreen(
                         modifier = Modifier
-                            .padding(innerPadding)
+                            .fillMaxSize()
                             .background(color = PlaySoptTheme.colors.white)
-                            .padding(innerPadding),
+                            .padding(paddingValues = innerPadding),
                         onRegisterClick = { email, password ->
                             intent.putExtra("email", email)
                             intent.putExtra("password", password)
@@ -79,7 +79,7 @@ fun RegisterScreen(
             modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
-                .verticalScroll(rememberScrollState())
+                .verticalScroll(state = rememberScrollState())
                 .padding(top = 60.dp, bottom = 40.dp),
         ) {
             Text(

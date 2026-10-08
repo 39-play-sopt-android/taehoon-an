@@ -66,7 +66,7 @@ private fun LoginScreenBottomPreview() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(all = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             LoginScreenBottomComponent(

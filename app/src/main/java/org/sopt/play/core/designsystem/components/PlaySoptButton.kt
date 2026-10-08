@@ -63,7 +63,7 @@ private fun PlaySoptButtonPreview() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(all = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             PlaySoptButton(

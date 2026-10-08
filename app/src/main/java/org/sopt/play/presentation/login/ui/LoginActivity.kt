@@ -47,7 +47,8 @@ class LoginActivity : ComponentActivity() {
 
         if (result.resultCode == RESULT_OK) {
             val email = result.data?.getStringExtra("email") ?: return@registerForActivityResult
-            val password = result.data?.getStringExtra("password")?: return@registerForActivityResult
+            val password =
+                result.data?.getStringExtra("password") ?: return@registerForActivityResult
 
             registeredEmail = email
             registeredPassword = password
@@ -64,7 +65,7 @@ class LoginActivity : ComponentActivity() {
                         modifier = Modifier
                             .fillMaxSize()
                             .background(color = PlaySoptTheme.colors.white)
-                            .padding(innerPadding),
+                            .padding(paddingValues = innerPadding),
                         onLoginClick = { email, password ->
                             Log.d(
                                 "LoginDebug",
@@ -72,13 +73,19 @@ class LoginActivity : ComponentActivity() {
                                         "emailMatches=${email == registeredEmail}, " +
                                         "passwordMatches=${password == registeredPassword}",
                             )
-                            if(email == registeredEmail && password == registeredPassword) {
-                                val intent = Intent(this@LoginActivity, MainActivity::class.java).apply {
-                                    flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                                }
+                            if (email == registeredEmail && password == registeredPassword) {
+                                val intent =
+                                    Intent(this@LoginActivity, MainActivity::class.java).apply {
+                                        flags =
+                                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                                    }
                                 this.startActivity(intent)
                             } else {
-                                Toast.makeText(this@LoginActivity, "이메일 또는 비밀번호가 올바르지 않아요.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(
+                                    this@LoginActivity,
+                                    "이메일 또는 비밀번호가 올바르지 않아요.",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                         }, // if문을 통해 분기처리 하기 (성공시 main, 실패시 toast)
                         onRegisterClick = {

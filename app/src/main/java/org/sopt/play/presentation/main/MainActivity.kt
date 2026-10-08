@@ -29,14 +29,16 @@ class MainActivity : ComponentActivity() {
             PlaySoptTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Column(
-                        modifier = Modifier.padding(innerPadding)
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(paddingValues = innerPadding)
                     ) {
                         Text("환영합니다")
 
                         Spacer(modifier = Modifier.height(16.dp))
 
                         Image(
-                            painter = painterResource(R.drawable.chikawa),
+                            painter = painterResource(id = R.drawable.chikawa),
                             contentDescription = null,
                             modifier = Modifier.fillMaxWidth()
                         )

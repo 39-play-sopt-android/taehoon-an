@@ -39,7 +39,7 @@ fun PlaySoptPasswordTextField(
     isError: Boolean = false,
     errorLabel: String? = null,
 ) {
-    var isFocused by remember { mutableStateOf(false) }
+    var isFocused by remember { mutableStateOf(value = false) }
 
     val textFieldTextStyle = PlaySoptTheme.typography.m18
     val borderColor = when {
@@ -47,7 +47,7 @@ fun PlaySoptPasswordTextField(
         isFocused -> PlaySoptTheme.colors.gray5
         else -> PlaySoptTheme.colors.gray2
     }
-    val shape = RoundedCornerShape(12.dp)
+    val shape = RoundedCornerShape(size = 12.dp)
     val startPadding = 6.dp
 
     Column(
@@ -84,7 +84,7 @@ fun PlaySoptPasswordTextField(
             textStyle = textFieldTextStyle.copy(color = PlaySoptTheme.colors.gray5),
             decorator = { innerTextField ->
                 Box(
-                    modifier = Modifier.padding(16.dp),
+                    modifier = Modifier.padding(all = 16.dp),
                 ) {
                     if (state.text.isEmpty()) {
                         Text(
@@ -124,7 +124,7 @@ private fun PlaySoptPasswordTextFieldPreview() {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(all = 16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             listOf(
