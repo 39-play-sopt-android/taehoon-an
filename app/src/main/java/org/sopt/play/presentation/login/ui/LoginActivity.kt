@@ -2,7 +2,6 @@ package org.sopt.play.presentation.login.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -38,13 +37,6 @@ class LoginActivity : ComponentActivity() {
     private val registerLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
     ) { result ->
-        Log.d(
-            "LoginDebug",
-            "resultCode=${result.resultCode}, " +
-                    "hasEmail=${result.data?.hasExtra("email")}, " +
-                    "hasPassword=${result.data?.hasExtra("password")}",
-        )
-
         if (result.resultCode == RESULT_OK) {
             val email = result.data?.getStringExtra("email") ?: return@registerForActivityResult
             val password =
@@ -67,12 +59,6 @@ class LoginActivity : ComponentActivity() {
                             .background(color = PlaySoptTheme.colors.white)
                             .padding(paddingValues = innerPadding),
                         onLoginClick = { email, password ->
-                            Log.d(
-                                "LoginDebug",
-                                "hasAccount=${registeredEmail != null && registeredPassword != null}, " +
-                                        "emailMatches=${email == registeredEmail}, " +
-                                        "passwordMatches=${password == registeredPassword}",
-                            )
                             if (email == registeredEmail && password == registeredPassword) {
                                 val intent =
                                     Intent(this@LoginActivity, MainActivity::class.java).apply {
