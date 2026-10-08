@@ -38,12 +38,10 @@ class LoginActivity : ComponentActivity() {
         ActivityResultContracts.StartActivityForResult(),
     ) { result ->
         if (result.resultCode == RESULT_OK) {
-            val email = result.data?.getStringExtra("email") ?: return@registerForActivityResult
-            val password =
+            registeredEmail =
+                result.data?.getStringExtra("email") ?: return@registerForActivityResult
+            registeredPassword =
                 result.data?.getStringExtra("password") ?: return@registerForActivityResult
-
-            registeredEmail = email
-            registeredPassword = password
         }
     }
 
