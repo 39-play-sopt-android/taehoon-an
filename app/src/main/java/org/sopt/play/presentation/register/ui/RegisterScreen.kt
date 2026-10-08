@@ -1,11 +1,6 @@
 package org.sopt.play.presentation.register.ui
 
-import android.os.Bundle
 import android.util.Patterns
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,7 +10,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -28,31 +22,6 @@ import org.sopt.play.core.designsystem.components.PlaySoptButton
 import org.sopt.play.core.designsystem.components.PlaySoptPasswordTextField
 import org.sopt.play.core.designsystem.components.PlaySoptTextField
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
-
-class RegisterActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
-        setContent {
-            PlaySoptTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    RegisterScreen(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .background(color = PlaySoptTheme.colors.white)
-                            .padding(paddingValues = innerPadding),
-                        onRegisterClick = { email, password ->
-                            intent.putExtra("email", email)
-                            intent.putExtra("password", password)
-                            setResult(RESULT_OK, intent)
-                            finish()
-                        }
-                    )
-                }
-            }
-        }
-    }
-}
 
 @Composable
 fun RegisterScreen(

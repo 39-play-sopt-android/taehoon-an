@@ -19,7 +19,7 @@
             android:windowSoftInputMode="adjustResize" />
 
         <activity
-            android:name=".presentation.login.ui.LoginActivity"
+            android:name=".presentation.login.LoginActivity"
             android:exported="true"
             android:label="@string/title_activity_login"
             android:theme="@style/Theme.PlaySopt"
@@ -32,7 +32,7 @@
         </activity>
 
         <activity
-            android:name=".presentation.register.ui.RegisterActivity"
+            android:name=".presentation.register.RegisterActivity"
             android:exported="false"
             android:label="@string/title_activity_register"
             android:theme="@style/Theme.PlaySopt"
