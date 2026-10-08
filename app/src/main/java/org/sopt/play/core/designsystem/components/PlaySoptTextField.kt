@@ -1,6 +1,12 @@
 package org.sopt.play.core.designsystem.components
 
 import android.util.Patterns
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -21,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
@@ -53,14 +60,14 @@ fun PlaySoptTextField(
     }
     val shape = RoundedCornerShape(size = 12.dp)
     val startPadding = 6.dp
+    val componentPadding = 6.dp
 
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         Text(
             text = label,
-            modifier = Modifier.padding(start = startPadding),
+            modifier = Modifier.padding(start = startPadding, bottom = componentPadding),
             color = PlaySoptTheme.colors.gray6,
             style = PlaySoptTheme.typography.sb16
         )
@@ -102,10 +109,24 @@ fun PlaySoptTextField(
             },
         )
 
-        if (isError && errorLabel != null) {
+        AnimatedVisibility(
+            visible = isError && errorLabel != null,
+            enter = fadeIn(
+                animationSpec = tween(durationMillis = 200),
+            ) + expandVertically(
+                animationSpec = tween(durationMillis = 200),
+                expandFrom = Alignment.Top,
+            ),
+            exit = fadeOut(
+                animationSpec = tween(durationMillis = 200),
+            ) + shrinkVertically(
+                animationSpec = tween(durationMillis = 200),
+                shrinkTowards = Alignment.Top,
+            ),
+        ) {
             Text(
-                text = errorLabel,
-                modifier = Modifier.padding(start = startPadding),
+                text = errorLabel.orEmpty(),
+                modifier = Modifier.padding(start = startPadding, top = componentPadding),
                 color = PlaySoptTheme.colors.red,
                 style = PlaySoptTheme.typography.m14
             )

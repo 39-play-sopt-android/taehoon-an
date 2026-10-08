@@ -1,5 +1,11 @@
 package org.sopt.play.core.designsystem.components
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +25,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
@@ -52,13 +59,15 @@ fun PlaySoptPasswordTextField(
 
     Column(
         modifier = modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         Text(
             text = label,
-            modifier = Modifier.padding(start = startPadding),
+            modifier = Modifier.padding(
+                start = startPadding,
+                bottom = 6.dp,
+            ),
             color = PlaySoptTheme.colors.gray6,
-            style = PlaySoptTheme.typography.sb16
+            style = PlaySoptTheme.typography.sb16,
         )
 
         BasicSecureTextField(
@@ -81,7 +90,9 @@ fun PlaySoptPasswordTextField(
                 autoCorrectEnabled = false,
             ),
             onKeyboardAction = onKeyboardAction,
-            textStyle = textFieldTextStyle.copy(color = PlaySoptTheme.colors.gray5),
+            textStyle = textFieldTextStyle.copy(
+                color = PlaySoptTheme.colors.gray5,
+            ),
             decorator = { innerTextField ->
                 Box(
                     modifier = Modifier.padding(all = 16.dp),
@@ -98,12 +109,29 @@ fun PlaySoptPasswordTextField(
             },
         )
 
-        if (isError && errorLabel != null) {
+        AnimatedVisibility(
+            visible = isError && errorLabel != null,
+            enter = fadeIn(
+                animationSpec = tween(durationMillis = 200),
+            ) + expandVertically(
+                animationSpec = tween(durationMillis = 200),
+                expandFrom = Alignment.Top,
+            ),
+            exit = fadeOut(
+                animationSpec = tween(durationMillis = 200),
+            ) + shrinkVertically(
+                animationSpec = tween(durationMillis = 200),
+                shrinkTowards = Alignment.Top,
+            ),
+        ) {
             Text(
-                text = errorLabel,
-                modifier = Modifier.padding(start = startPadding),
+                text = errorLabel.orEmpty(),
+                modifier = Modifier.padding(
+                    start = startPadding,
+                    top = 6.dp,
+                ),
                 color = PlaySoptTheme.colors.red,
-                style = PlaySoptTheme.typography.m14
+                style = PlaySoptTheme.typography.m14,
             )
         }
     }
