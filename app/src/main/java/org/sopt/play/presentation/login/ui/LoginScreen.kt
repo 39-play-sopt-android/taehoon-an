@@ -53,7 +53,7 @@ fun LoginScreen(
             keyboardType = KeyboardType.Email,
             imeAction = ImeAction.Next,
             isError = isEmailError,
-            errorLabel = "잘못된 이메일입니다.",
+            errorLabel = "올바른 이메일을 입력해주세요..",
         )
 
         Spacer(modifier = Modifier.height(32.dp))
