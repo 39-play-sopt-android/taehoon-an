@@ -45,7 +45,7 @@ fun PlaySoptButton(
             )
             .clip(shape = CircleShape)
             .background(color = backgroundColor)
-            .padding(vertical = 16.dp),
+            .padding(all = 16.dp),
         contentAlignment = Alignment.Center
     ) {
         Text(
