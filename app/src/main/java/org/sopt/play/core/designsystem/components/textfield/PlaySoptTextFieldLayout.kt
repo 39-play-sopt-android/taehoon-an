@@ -16,6 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 
+const val DEFAULT_ANIMATION_DURATION = 200
+
 @Composable
 fun PlaySoptTextFieldLayout(
     label: String,
@@ -36,12 +38,12 @@ fun PlaySoptTextFieldLayout(
 
         AnimatedVisibility(
             visible = isError && errorLabel != null,
-            enter = fadeIn(tween(200)) + expandVertically(
-                animationSpec = tween(200),
+            enter = fadeIn(tween(DEFAULT_ANIMATION_DURATION)) + expandVertically(
+                animationSpec = tween(DEFAULT_ANIMATION_DURATION),
                 expandFrom = Alignment.Top,
             ),
-            exit = fadeOut(tween(200)) + shrinkVertically(
-                animationSpec = tween(200),
+            exit = fadeOut(tween(DEFAULT_ANIMATION_DURATION)) + shrinkVertically(
+                animationSpec = tween(DEFAULT_ANIMATION_DURATION),
                 shrinkTowards = Alignment.Top,
             ),
         ) {
