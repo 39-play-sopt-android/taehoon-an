@@ -87,7 +87,7 @@ fun LoginScreen(
                     passwordState.text.toString(),
                 )
             },
-            onRegisterClick = { onRegisterClick() },
+            onRegisterClick = onRegisterClick,
             modifier = Modifier,
         )
     }
