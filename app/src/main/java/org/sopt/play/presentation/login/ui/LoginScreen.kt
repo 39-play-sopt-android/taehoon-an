@@ -6,7 +6,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.input.rememberTextFieldState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,6 +28,7 @@ fun LoginScreen(
     onRegisterClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val scrollState = rememberScrollState()
     val emailState = rememberTextFieldState()
     val passwordState = rememberTextFieldState()
     val focusManager = LocalFocusManager.current
@@ -36,7 +39,7 @@ fun LoginScreen(
             passwordState.text.toString().length < 6
 
     Column(
-        modifier = modifier.padding(start = 16.dp, top = 60.dp, end = 16.dp, bottom = 0.dp),
+        modifier = modifier.verticalScroll(state = scrollState).padding(start = 16.dp, top = 60.dp, end = 16.dp, bottom = 0.dp),
     ) {
         Text(
             text = "이메일로 로그인하기",
