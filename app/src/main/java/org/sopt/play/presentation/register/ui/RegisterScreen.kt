@@ -12,6 +12,9 @@ import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
@@ -34,13 +37,51 @@ fun RegisterScreen(
     val passwordCheckState = rememberTextFieldState()
     val focusManager = LocalFocusManager.current
 
-    val isEmailError = emailState.text.toString().isNotEmpty() &&
-            !Patterns.EMAIL_ADDRESS.matcher(emailState.text.toString()).matches()
-    val isPasswordError = passwordState.text.toString().isNotEmpty() &&
-            passwordState.text.toString().length < 6
-    val isPasswordCheckError = passwordCheckState.text.toString()
-        .isNotEmpty() && passwordCheckState.text.toString() != passwordState.text.toString()
+    val isEmailError by remember(emailState) {
+        derivedStateOf {
+            val email = emailState.text.toString()
 
+            email.isNotEmpty() &&
+                    !Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        }
+    }
+
+    val isPasswordError by remember(passwordState) {
+        derivedStateOf {
+            val password = passwordState.text
+
+            password.isNotEmpty() && password.length < 6
+        }
+    }
+
+    val isPasswordCheckError by remember(passwordState, passwordCheckState) {
+        derivedStateOf {
+            val password = passwordState.text.toString()
+            val passwordCheck = passwordCheckState.text.toString()
+
+            passwordCheck.isNotEmpty() && passwordCheck != password
+        }
+    }
+
+    val isRegisterEnabled by remember(
+        nameState,
+        emailState,
+        passwordState,
+        passwordCheckState,
+    ) {
+        derivedStateOf {
+            nameState.text.isNotBlank() &&
+                    emailState.text.isNotEmpty() &&
+                    emailState.text.isNotBlank() &&
+                    passwordState.text.isNotEmpty() &&
+                    passwordState.text.isNotBlank() &&
+                    passwordCheckState.text.isNotEmpty() &&
+                    passwordCheckState.text.isNotBlank() &&
+                    !isEmailError &&
+                    !isPasswordError &&
+                    !isPasswordCheckError
+        }
+    }
     Column(
         modifier = modifier.padding(horizontal = 16.dp),
     ) {
@@ -118,13 +159,7 @@ fun RegisterScreen(
                     passwordState.text.toString(),
                 )
             },
-            enabled = nameState.text.isNotBlank() &&
-                    emailState.text.isNotEmpty() &&
-                    passwordState.text.isNotEmpty() &&
-                    passwordCheckState.text.isNotEmpty() &&
-                    !isEmailError &&
-                    !isPasswordError &&
-                    !isPasswordCheckError,
+            enabled = isRegisterEnabled
         )
     }
 }

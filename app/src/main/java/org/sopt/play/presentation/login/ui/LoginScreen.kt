@@ -11,6 +11,9 @@ import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
@@ -33,10 +36,22 @@ fun LoginScreen(
     val passwordState = rememberTextFieldState()
     val focusManager = LocalFocusManager.current
 
-    val isEmailError = emailState.text.toString().isNotEmpty() &&
-            !Patterns.EMAIL_ADDRESS.matcher(emailState.text.toString()).matches()
-    val isPasswordError = passwordState.text.toString().isNotEmpty() &&
-            passwordState.text.toString().length < 6
+    val isEmailError by remember(key1 = emailState) {
+        derivedStateOf {
+            val email = emailState.text.toString()
+
+            email.isNotEmpty() &&
+                    !Patterns.EMAIL_ADDRESS.matcher(email).matches()
+        }
+    }
+
+    val isPasswordError by remember(key1 = passwordState) {
+        derivedStateOf {
+            val password = passwordState.text
+
+            password.isNotEmpty() && password.length < 6
+        }
+    }
 
     Column(
         modifier = modifier.verticalScroll(state = scrollState).padding(start = 16.dp, top = 60.dp, end = 16.dp, bottom = 0.dp),
