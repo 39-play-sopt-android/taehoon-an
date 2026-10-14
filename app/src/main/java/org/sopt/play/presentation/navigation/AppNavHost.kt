@@ -8,13 +8,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import org.sopt.play.data.model.UserModel
 import org.sopt.play.presentation.login.ui.LoginRoute
+import org.sopt.play.presentation.main.ui.MainRoute
 import org.sopt.play.presentation.register.ui.RegisterRoute
 
 @Composable
 fun AppNavHost(
-    onRegister:(UserModel) -> Unit,
-    onLogin:(UserModel) -> Boolean,
-    ) {
+    onRegister: (UserModel) -> Unit,
+    onLogin: (UserModel) -> Boolean,
+) {
     val navController = rememberNavController()
 
     NavHost(
@@ -28,7 +29,7 @@ fun AppNavHost(
         composable<LoginRoute> {
             LoginRoute(
                 onLoginClick = { user ->
-                    if(onLogin(user)) {
+                    if (onLogin(user)) {
                         navController.navigate(MainRoute) {
                             popUpTo<LoginRoute> {
                                 inclusive = true
@@ -59,8 +60,7 @@ fun AppNavHost(
         }
 
         composable<MainRoute> {
-//            MainScreen(
-//            )
+            MainRoute()
         }
     }
 }
