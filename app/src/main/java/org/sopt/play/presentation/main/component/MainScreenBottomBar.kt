@@ -23,7 +23,7 @@ import org.sopt.play.core.util.noRippleClickable
 import org.sopt.play.presentation.main.ui.MainTab
 
 @Composable
-fun MainBottomBar(
+fun MainScreenBottomBar(
     onTabClick: (MainTab) -> Unit,
     modifier: Modifier = Modifier,
     selectedTab: MainTab = MainTab.HOME,
@@ -86,9 +86,9 @@ fun MainBottomBar(
 
 @Preview
 @Composable
-fun MainBottomBarPreview() {
+fun MainScreenBottomBarPreview() {
     PlaySoptTheme {
-        MainBottomBar(
+        MainScreenBottomBar(
             selectedTab = MainTab.HOME,
             onTabClick = {},
         )

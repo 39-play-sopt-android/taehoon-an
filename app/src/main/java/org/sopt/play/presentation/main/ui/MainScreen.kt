@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import org.sopt.play.R
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
-import org.sopt.play.presentation.main.component.MainBottomBar
+import org.sopt.play.presentation.main.component.MainScreenBottomBar
 import org.sopt.play.presentation.main.ui.favorite.MainFavoriteScreen
 import org.sopt.play.presentation.main.ui.home.MainHomeScreen
 import org.sopt.play.presentation.main.ui.my.MainMyScreen
@@ -59,7 +59,7 @@ fun MainScreen(
         modifier = modifier.fillMaxSize(),
         containerColor = PlaySoptTheme.colors.white,
         bottomBar = {
-            MainBottomBar(
+            MainScreenBottomBar(
                 selectedTab = selectedTab,
                 onTabClick = { tab ->
                     selectedTab = tab
