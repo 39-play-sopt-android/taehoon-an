@@ -1,6 +1,7 @@
 package org.sopt.play.presentation.register
 
 import android.os.Bundle
+import android.provider.Telephony.Carriers.PASSWORD
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -12,7 +13,12 @@ import androidx.compose.ui.Modifier
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.presentation.register.ui.RegisterScreen
 
+const val EMAIL = "email"
+const val PASSWORD = "password"
+
 class RegisterActivity : ComponentActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -25,8 +31,8 @@ class RegisterActivity : ComponentActivity() {
                             .background(color = PlaySoptTheme.colors.white)
                             .padding(paddingValues = innerPadding),
                         onRegisterClick = { email, password ->
-                            intent.putExtra("email", email)
-                            intent.putExtra("password", password)
+                            intent.putExtra(EMAIL, email)
+                            intent.putExtra(PASSWORD, password)
                             setResult(RESULT_OK, intent)
                             finish()
                         }

@@ -2,6 +2,7 @@ package org.sopt.play.presentation.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.Telephony.Carriers.PASSWORD
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -15,6 +16,7 @@ import androidx.compose.ui.Modifier
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.presentation.login.ui.LoginScreen
 import org.sopt.play.presentation.main.MainActivity
+import org.sopt.play.presentation.register.EMAIL
 import org.sopt.play.presentation.register.RegisterActivity
 
 class LoginActivity : ComponentActivity() {
@@ -25,9 +27,9 @@ class LoginActivity : ComponentActivity() {
     ) { result ->
         if (result.resultCode == RESULT_OK) {
             registeredEmail =
-                result.data?.getStringExtra("email") ?: return@registerForActivityResult
+                result.data?.getStringExtra(EMAIL) ?: return@registerForActivityResult
             registeredPassword =
-                result.data?.getStringExtra("password") ?: return@registerForActivityResult
+                result.data?.getStringExtra(PASSWORD) ?: return@registerForActivityResult
         }
     }
 
