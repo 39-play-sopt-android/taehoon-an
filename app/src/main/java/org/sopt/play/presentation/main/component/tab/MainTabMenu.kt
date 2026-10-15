@@ -1,7 +1,6 @@
 package org.sopt.play.presentation.main.component.tab
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,7 +17,7 @@ import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.util.noRippleClickable
 
 @Composable
-fun MainTabMenuItem(
+fun MainTabMenu(
     text: String,
     isSelected: Boolean,
     onClick: () -> Unit,
@@ -35,7 +34,7 @@ fun MainTabMenuItem(
     Column(
         modifier = modifier
             .noRippleClickable { onClick() }
-            .padding(horizontal = 16.dp),
+            .padding(horizontal = 16.dp, vertical = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
@@ -62,26 +61,20 @@ fun MainTabMenuItem(
 
 @Preview(showBackground = true)
 @Composable
-private fun MainTabMenuItemPreview() {
+private fun MainTabMenuPreview() {
     PlaySoptTheme {
-        Column(
-            modifier = Modifier
-                .padding(all = 16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-        ) {
-            Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                MainTabMenuItem(
-                    text = "메뉴",
-                    isSelected = true,
-                    onClick = {},
-                )
+        Row() {
+            MainTabMenu(
+                text = "메뉴",
+                isSelected = true,
+                onClick = {},
+            )
 
-                MainTabMenuItem(
-                    text = "메뉴",
-                    isSelected = false,
-                    onClick = {},
-                )
-            }
+            MainTabMenu(
+                text = "메뉴",
+                isSelected = false,
+                onClick = {},
+            )
         }
     }
 }
