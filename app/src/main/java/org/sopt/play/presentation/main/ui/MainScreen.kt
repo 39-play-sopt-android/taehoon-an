@@ -105,18 +105,6 @@ fun MainScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun MainFavoriteScreenPreview() {
-    PlaySoptTheme {
-        MainScreen(
-            tab = MainTab.FAVORITE,
-            modifier = Modifier.fillMaxSize(),
-            user = UserModel(name = "김솝트", email = "abc@email.com", password = "123456"),
-            )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
 fun MainMyScreenPreview() {
     PlaySoptTheme {
         MainScreen(

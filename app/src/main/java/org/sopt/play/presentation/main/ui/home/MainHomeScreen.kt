@@ -13,14 +13,10 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.play.R
-import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.data.model.ProductModel
 import org.sopt.play.data.model.UserModel
-import org.sopt.play.presentation.main.ui.MainScreen
-import org.sopt.play.presentation.main.ui.MainTab
 import org.sopt.play.presentation.main.ui.home.component.productcard.MainScreenProductCard
 import org.sopt.play.presentation.main.ui.home.component.top.MainHomeTop
 
@@ -126,17 +122,5 @@ fun MainHomeScreen(
                 },
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun MainHomeScreenPreview() {
-    PlaySoptTheme {
-        MainScreen(
-            tab = MainTab.HOME,
-            modifier = Modifier.fillMaxSize(),
-            user = UserModel(name = "김솝트", email = "abc@email.com", password = "123456"),
-        )
     }
 }
