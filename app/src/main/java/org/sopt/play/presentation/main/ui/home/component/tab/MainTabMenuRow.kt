@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.main.component.tab
+package org.sopt.play.presentation.main.ui.home.component.tab
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyRow
@@ -16,6 +16,7 @@ import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 fun MainTabMenuRow(
     selectedTab: String,
     onTabClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
     tabList: List<String> = listOf(
         "2배적립",
         "홈",
@@ -25,7 +26,6 @@ fun MainTabMenuRow(
         "라이프",
         "랭킹"
     ),
-    modifier: Modifier = Modifier,
 ) {
     LazyRow(
         modifier = modifier.fillMaxWidth()

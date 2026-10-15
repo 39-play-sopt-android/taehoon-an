@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.main.component.tab
+package org.sopt.play.presentation.main.ui.home.component.chip
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.main.component.tab
+package org.sopt.play.presentation.main.ui.home.component.chip
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -19,6 +19,7 @@ import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 fun MainChipRow(
     selectedChip: String,
     onChipClick: (String) -> Unit,
+    modifier: Modifier = Modifier,
     chipList: List<String> = listOf(
         "전체",
         "상의",
@@ -31,7 +32,6 @@ fun MainChipRow(
         "이너웨어/잠옷",
         "폰꾸미기"
     ),
-    modifier: Modifier = Modifier,
 ) {
     LazyRow(
         modifier = modifier.fillMaxWidth(),
