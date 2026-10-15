@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.main.component.tab
+package org.sopt.play.presentation.main.ui.home.component.banner
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -20,12 +20,12 @@ import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 
 @Composable
 fun MainBannerRow(
+    modifier: Modifier = Modifier,
     imageList: List<Int> = listOf(
         R.drawable.img_banner1,
         R.drawable.img_banner2,
         R.drawable.img_banner3,
     ),
-    modifier: Modifier = Modifier,
 ) {
     if (imageList.isEmpty()) {
         Box(
@@ -37,9 +37,13 @@ fun MainBannerRow(
         return
     }
 
+    val imageCount = imageList.size
+    val middlePage = Int.MAX_VALUE / 2
+    val initialPage = middlePage - (middlePage % imageCount)
+
     val pagerState = rememberPagerState(
-        initialPage = 0, //처음 표시할 이미지
-        pageCount = { Int.MAX_VALUE }, //전체 pager의 크기
+        initialPage = initialPage,
+        pageCount = { Int.MAX_VALUE },
     )
 
     HorizontalPager(
