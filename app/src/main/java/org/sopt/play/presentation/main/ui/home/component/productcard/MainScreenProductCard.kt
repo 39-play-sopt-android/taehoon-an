@@ -137,7 +137,7 @@ private fun MainScreenProductCardPreview() {
                         productName = "상품명 최대 한 줄",
                         discountRate = 49,
                         price = "29,370",
-                        isFavorite = false,
+                        isFavorite = true,
                         imageRes = R.drawable.dummy1,
                     ),
                     onFavoriteClick = {},
