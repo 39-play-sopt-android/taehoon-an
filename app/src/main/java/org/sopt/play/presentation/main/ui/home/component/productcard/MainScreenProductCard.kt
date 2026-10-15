@@ -1,6 +1,5 @@
-package org.sopt.play.presentation.main.component
+package org.sopt.play.presentation.main.ui.home.component.productcard
 
-import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,15 +22,11 @@ import androidx.compose.ui.unit.dp
 import org.sopt.play.R
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.util.noRippleClickable
+import org.sopt.play.data.model.ProductModel
 
 @Composable
 fun MainScreenProductCard(
-    @DrawableRes imageRes: Int,
-    storeName: String,
-    productName: String,
-    discountRate: Int,
-    price: String,
-    isFavorite: Boolean,
+    product: ProductModel,
     onFavoriteClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -44,9 +39,9 @@ fun MainScreenProductCard(
     val productNameColor = PlaySoptTheme.colors.black
     val discountRateColor = PlaySoptTheme.colors.red
     val priceColor = PlaySoptTheme.colors.black
-    val favoriteColor = if (isFavorite) PlaySoptTheme.colors.red else PlaySoptTheme.colors.white
+    val favoriteColor = if (product.isFavorite) PlaySoptTheme.colors.red else PlaySoptTheme.colors.white
 
-    val favoriteRes = if (isFavorite) {
+    val favoriteRes = if (product.isFavorite) {
         painterResource(R.drawable.ic_favorite_fill)
     } else {
         painterResource(R.drawable.ic_favorite_default)
@@ -55,7 +50,7 @@ fun MainScreenProductCard(
     Column(modifier = modifier.fillMaxWidth()) {
         Box {
             Image(
-                painter = painterResource(imageRes),
+                painter = painterResource(product.imageRes),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
@@ -80,7 +75,7 @@ fun MainScreenProductCard(
             verticalArrangement = Arrangement.spacedBy(6.dp),
         ) {
             Text(
-                text = storeName,
+                text = product.storeName,
                 color = storeNameColor,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
@@ -88,7 +83,7 @@ fun MainScreenProductCard(
             )
 
             Text(
-                text = productName,
+                text = product.productName,
                 maxLines = 1,
                 color = productNameColor,
                 overflow = TextOverflow.Ellipsis,
@@ -97,13 +92,13 @@ fun MainScreenProductCard(
 
             Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 Text(
-                    text = "$discountRate%",
+                    text = "${product.discountRate}%",
                     color = discountRateColor,
                     style = discountRateStyle
                 )
 
                 Text(
-                    text = price,
+                    text = product.price,
                     color = priceColor,
                     style = priceStyle
                 )
@@ -124,23 +119,27 @@ private fun MainScreenProductCardPreview() {
         ) {
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 MainScreenProductCard(
-                    imageRes = R.drawable.dummy1,
-                    storeName = "스토어명 최대 한 줄",
-                    productName = "상품명 최대 한 줄",
-                    discountRate = 49,
-                    price = "29,370",
-                    isFavorite = false,
+                    product = ProductModel(
+                        storeName = "스토어명 최대 한 줄",
+                        productName = "상품명 최대 한 줄",
+                        discountRate = 49,
+                        price = "29,370",
+                        isFavorite = false,
+                        imageRes = R.drawable.dummy1,
+                    ),
                     onFavoriteClick = {},
                     modifier = Modifier.weight(1f),
                 )
 
                 MainScreenProductCard(
-                    imageRes = R.drawable.dummy1,
-                    storeName = "스토어명 최대 한 줄",
-                    productName = "상품명 최대 한 줄",
-                    discountRate = 49,
-                    price = "29,370",
-                    isFavorite = true,
+                    product = ProductModel(
+                        storeName = "스토어명 최대 한 줄",
+                        productName = "상품명 최대 한 줄",
+                        discountRate = 49,
+                        price = "29,370",
+                        isFavorite = false,
+                        imageRes = R.drawable.dummy1,
+                    ),
                     onFavoriteClick = {},
                     modifier = Modifier.weight(1f),
                 )
