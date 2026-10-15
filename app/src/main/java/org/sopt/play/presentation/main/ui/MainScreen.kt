@@ -3,6 +3,7 @@ package org.sopt.play.presentation.main.ui
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -13,7 +14,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import org.sopt.play.R
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
+import org.sopt.play.data.model.UserModel
 import org.sopt.play.presentation.main.component.MainScreenBottomBar
+import org.sopt.play.presentation.main.component.MainScreenTopBar
 import org.sopt.play.presentation.main.ui.favorite.MainFavoriteScreen
 import org.sopt.play.presentation.main.ui.home.MainHomeScreen
 import org.sopt.play.presentation.main.ui.my.MainMyScreen
@@ -42,18 +45,22 @@ enum class MainTab(
 
 @Composable
 fun MainRoute(
+    user: UserModel?,
     modifier: Modifier = Modifier
 ) {
     MainScreen(
+        user = user,
         modifier = Modifier.padding()
     )
 }
 
 @Composable
 fun MainScreen(
+    user: UserModel?,
+    tab: MainTab = MainTab.HOME,
     modifier: Modifier = Modifier,
 ) {
-    var selectedTab by remember { mutableStateOf(MainTab.HOME) }
+    var selectedTab by remember { mutableStateOf(tab) }
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -66,16 +73,31 @@ fun MainScreen(
                 },
             )
         },
+        topBar = {
+            MainScreenTopBar(
+                onSearchClick = { },
+                modifier = Modifier.statusBarsPadding()
+            )
+        }
     ) { innerPadding ->
         when (selectedTab) {
             MainTab.HOME -> MainHomeScreen(
-                modifier = Modifier.fillMaxSize().padding(innerPadding)
+                user = user,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
             )
+
             MainTab.FAVORITE -> MainFavoriteScreen(
-                modifier = Modifier.fillMaxSize().padding(innerPadding)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
             )
+
             MainTab.MY -> MainMyScreen(
-                modifier = Modifier.fillMaxSize().padding(innerPadding)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(innerPadding)
             )
         }
     }
@@ -83,10 +105,25 @@ fun MainScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun MainScreenPreview() {
+fun MainFavoriteScreenPreview() {
     PlaySoptTheme {
         MainScreen(
+            tab = MainTab.FAVORITE,
             modifier = Modifier.fillMaxSize(),
-        )
+            user = UserModel(name = "김솝트", email = "abc@email.com", password = "123456"),
+            )
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun MainMyScreenPreview() {
+    PlaySoptTheme {
+        MainScreen(
+            tab = MainTab.MY,
+            modifier = Modifier.fillMaxSize(),
+            user = UserModel(name = "김솝트", email = "abc@email.com", password = "123456"),
+            )
+    }
+}
+

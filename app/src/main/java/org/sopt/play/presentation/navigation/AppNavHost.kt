@@ -13,6 +13,7 @@ import org.sopt.play.presentation.register.ui.RegisterRoute
 
 @Composable
 fun AppNavHost(
+    user: UserModel?,
     onRegister: (UserModel) -> Unit,
     onLogin: (UserModel) -> Boolean,
 ) {
@@ -60,7 +61,9 @@ fun AppNavHost(
         }
 
         composable<MainRoute> {
-            MainRoute()
+            MainRoute(
+                user = user
+            )
         }
     }
 }
