@@ -71,7 +71,7 @@ fun MainScreenProductCard(
         }
 
         Column(
-            modifier = Modifier.padding(start = 6.dp, top = 12.dp, end = 6.dp, bottom = 20.dp),
+            modifier = Modifier.padding(start = 8.dp, top = 12.dp, end = 8.dp, bottom = 20.dp),
             verticalArrangement = Arrangement.spacedBy(6.dp),
         ) {
             Text(
