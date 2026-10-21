@@ -50,7 +50,7 @@ fun MainScreenTopBar(
                 painter = painterResource(R.drawable.ic_search_default),
                 contentDescription = "검색",
                 tint = searchColor,
-                modifier = Modifier.size(24.dp),
+                modifier = Modifier.size(28.dp),
             )
         }
     }
