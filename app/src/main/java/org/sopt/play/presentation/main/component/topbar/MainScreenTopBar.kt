@@ -4,9 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
@@ -35,8 +33,7 @@ fun MainScreenTopBar(
         modifier = modifier
             .fillMaxWidth()
             .background(backgroundColor)
-            .padding(start = 16.dp, end = 6.dp)
-            .height(48.dp),
+            .padding(start = 16.dp, end = 6.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -47,7 +44,7 @@ fun MainScreenTopBar(
         )
 
         Box(
-            modifier = Modifier.fillMaxHeight().padding(10.dp)
+            modifier = Modifier.padding(10.dp)
         ) {
             Icon(
                 painter = painterResource(R.drawable.ic_search_default),
