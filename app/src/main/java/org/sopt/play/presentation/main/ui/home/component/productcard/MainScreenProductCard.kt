@@ -39,9 +39,11 @@ fun MainScreenProductCard(
     val productNameColor = PlaySoptTheme.colors.black
     val discountRateColor = PlaySoptTheme.colors.red
     val priceColor = PlaySoptTheme.colors.black
-    val favoriteColor = if (product.isFavorite) PlaySoptTheme.colors.red else PlaySoptTheme.colors.white
+    val favoriteColor =
+        if (product.isFavorite) PlaySoptTheme.colors.red else PlaySoptTheme.colors.white
 
-    val favoriteRes = if (product.isFavorite) painterResource(R.drawable.ic_favorite_fill) else painterResource(R.drawable.ic_favorite_default)
+    val favoriteRes =
+        if (product.isFavorite) R.drawable.ic_favorite_fill else R.drawable.ic_favorite_default
 
 
     Column(modifier = modifier.fillMaxWidth()) {
@@ -56,13 +58,13 @@ fun MainScreenProductCard(
             )
 
             Icon(
-                painter = favoriteRes,
+                painter = painterResource(favoriteRes),
                 contentDescription = null,
                 modifier = Modifier
                     .align(Alignment.BottomEnd)
+                    .noRippleClickable { onFavoriteClick() }
                     .padding(8.dp)
-                    .size(24.dp)
-                    .noRippleClickable { onFavoriteClick() },
+                    .size(24.dp),
                 tint = favoriteColor
             )
         }

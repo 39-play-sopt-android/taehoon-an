@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
@@ -35,17 +36,14 @@ fun MainTabMenu(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Box(
-            modifier = Modifier.size(8.dp),
-            contentAlignment = Alignment.Center,
-        ) {
-            if (isSelected) {
-                Box(
-                    modifier = Modifier
-                        .size(4.dp)
-                        .background(indicatorColor, CircleShape),
-                )
-            }
-        }
+            modifier = Modifier
+                .size(8.dp)
+                .padding(2.dp)
+                .background(
+                    color = if (isSelected) indicatorColor else Color.Transparent,
+                    shape = CircleShape,
+                ),
+        )
 
         Text(
             text = text,
