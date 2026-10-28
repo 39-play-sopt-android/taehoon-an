@@ -26,7 +26,7 @@ import org.sopt.play.presentation.main.ui.MainTab
 fun MainScreenBottomBar(
     onTabClick: (MainTab) -> Unit,
     modifier: Modifier = Modifier,
-    selectedTab: MainTab = MainTab.HOME,
+    selectedTab: MainTab,
 ) {
     Column(
         modifier = modifier
