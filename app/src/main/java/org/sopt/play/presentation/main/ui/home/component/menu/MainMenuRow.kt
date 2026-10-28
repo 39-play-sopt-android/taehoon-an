@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.main.ui.home.component.tab
+package org.sopt.play.presentation.main.ui.home.component.menu
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Row
@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 
-enum class MainTabType(val title: String) {
+enum class MainMenuType(val title: String) {
     DOUBLE_POINTS("2배적립"),
     HOME("홈"),
     SELECTED("셀렉티드"),
@@ -25,8 +25,8 @@ enum class MainTabType(val title: String) {
 
 @Composable
 fun MainTabMenuRow(
-    selectedTab: MainTabType,
-    onTabClick: (MainTabType) -> Unit,
+    selectedMenu: MainMenuType,
+    onMenuClick: (MainMenuType) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -34,11 +34,11 @@ fun MainTabMenuRow(
             .fillMaxWidth()
             .horizontalScroll(rememberScrollState()),
     ) {
-        MainTabType.entries.forEach { tab ->
+        MainMenuType.entries.forEach { tab ->
             MainTabMenu(
                 text = tab.title,
-                isSelected = selectedTab == tab,
-                onClick = { onTabClick(tab) },
+                isSelected = selectedMenu == tab,
+                onClick = { onMenuClick(tab) },
             )
         }
     }
@@ -46,13 +46,13 @@ fun MainTabMenuRow(
 
 @Preview(showBackground = true)
 @Composable
-private fun MainScreenChipPreview() {
+private fun MainMenuRowPreview() {
     PlaySoptTheme {
-        var selectedTab by remember { mutableStateOf(MainTabType.HOME) }
+        var selectedTab by remember { mutableStateOf(MainMenuType.HOME) }
 
         MainTabMenuRow(
-            selectedTab = selectedTab,
-            onTabClick = { selectedTab = it },
+            selectedMenu = selectedTab,
+            onMenuClick = { selectedTab = it },
         )
     }
 }

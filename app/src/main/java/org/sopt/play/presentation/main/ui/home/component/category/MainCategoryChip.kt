@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.main.ui.home.component.chip
+package org.sopt.play.presentation.main.ui.home.component.category
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -17,7 +17,7 @@ import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.util.noRippleClickable
 
 @Composable
-fun MainChip(
+fun MainCategoryChip(
     text: String,
     isSelected: Boolean,
     onClick: () -> Unit,
@@ -26,13 +26,8 @@ fun MainChip(
     val textStyle = PlaySoptTheme.typography.m14
 
     val textColor = if (isSelected) PlaySoptTheme.colors.white else PlaySoptTheme.colors.gray5
-
-
     val backgroundColor = if (isSelected) PlaySoptTheme.colors.gray5 else PlaySoptTheme.colors.white
-
-
     val borderColor = if (isSelected) PlaySoptTheme.colors.gray5 else PlaySoptTheme.colors.gray2
-
 
     val shape = RoundedCornerShape(6.dp)
 
@@ -55,7 +50,7 @@ fun MainChip(
 
 @Preview(showBackground = true)
 @Composable
-private fun MainChipPreview() {
+private fun MainCategoryChipPreview() {
     PlaySoptTheme {
         Column(
             modifier = Modifier
@@ -63,13 +58,13 @@ private fun MainChipPreview() {
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                MainChip(
+                MainCategoryChip(
                     text = "칩",
                     isSelected = false,
                     onClick = {},
                 )
 
-                MainChip(
+                MainCategoryChip(
                     text = "칩",
                     isSelected = true,
                     onClick = {},

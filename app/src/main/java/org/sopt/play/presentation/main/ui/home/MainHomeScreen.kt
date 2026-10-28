@@ -2,11 +2,15 @@ package org.sopt.play.presentation.main.ui.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.itemsIndexed
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -15,11 +19,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.sopt.play.R
+import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.data.model.UserModel
-import org.sopt.play.presentation.main.ui.home.component.chip.MainChipType
+import org.sopt.play.presentation.main.ui.home.component.banner.MainBannerRow
+import org.sopt.play.presentation.main.ui.home.component.category.MainCategoryRow
+import org.sopt.play.presentation.main.ui.home.component.category.MainCategoryType
+import org.sopt.play.presentation.main.ui.home.component.menu.MainTabMenuRow
+import org.sopt.play.presentation.main.ui.home.component.menu.MainMenuType
 import org.sopt.play.presentation.main.ui.home.component.productcard.MainScreenProductCard
-import org.sopt.play.presentation.main.ui.home.component.tab.MainTabType
-import org.sopt.play.presentation.main.ui.home.component.top.MainHomeTop
 import org.sopt.play.presentation.main.ui.home.model.ProductModel
 
 @Composable
@@ -27,8 +34,8 @@ fun MainHomeScreen(
     user: UserModel?,
     modifier: Modifier = Modifier,
 ) {
-    var selectedTab by rememberSaveable { mutableStateOf(MainTabType.HOME) }
-    var selectedChip by rememberSaveable { mutableStateOf(MainChipType.ALL) }
+    var selectedTab by rememberSaveable { mutableStateOf(MainMenuType.HOME) }
+    var selectedChip by rememberSaveable { mutableStateOf(MainCategoryType.ALL) }
     val userName = user?.name ?: "김솝트"
 
     var itemList by rememberSaveable {
@@ -101,13 +108,36 @@ fun MainHomeScreen(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         item(span = { GridItemSpan(maxLineSpan) }) {
-            MainHomeTop(
-                userName = userName,
-                selectedTab = selectedTab,
-                selectedChip = selectedChip,
-                onTabClick = { selectedTab = it },
-                onChipClick = { selectedChip = it },
+            MainTabMenuRow(
+                selectedMenu = selectedTab,
+                onMenuClick = { selectedTab = it },
             )
+        }
+
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            MainBannerRow()
+
+            Spacer(modifier = Modifier.height(20.dp))
+        }
+
+        item(span = { GridItemSpan(maxLineSpan) }) {
+            Text(
+                text = "${userName}님을 위한 추천 아이템",
+                modifier = Modifier.padding(horizontal = 16.dp),
+                color = PlaySoptTheme.colors.black,
+                style = PlaySoptTheme.typography.m18,
+            )
+
+            Spacer(modifier = Modifier.height(12.dp))
+        }
+
+        item(span = { GridItemSpan(maxLineSpan)}) {
+            MainCategoryRow(
+                selectedCategory = selectedChip,
+                onCategoryClick = { selectedChip = it },
+                )
+
+            Spacer(modifier = Modifier.height(20.dp))
         }
 
         itemsIndexed(itemList) { index, item ->

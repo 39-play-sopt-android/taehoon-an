@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.main.ui.home.component.chip
+package org.sopt.play.presentation.main.ui.home.component.category
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 
-enum class MainChipType(val title: String) {
+enum class MainCategoryType(val title: String) {
     ALL("전체"),
     TOPS("상의"),
     PANTS("팬츠"),
@@ -30,9 +30,9 @@ enum class MainChipType(val title: String) {
 }
 
 @Composable
-fun MainChipRow(
-    selectedChip: MainChipType,
-    onChipClick: (MainChipType) -> Unit,
+fun MainCategoryRow(
+    selectedCategory: MainCategoryType,
+    onCategoryClick: (MainCategoryType) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -42,11 +42,11 @@ fun MainChipRow(
             .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {
-        MainChipType.entries.forEach { chip ->
-            MainChip(
+        MainCategoryType.entries.forEach { chip ->
+            MainCategoryChip(
                 text = chip.title,
-                isSelected = selectedChip == chip,
-                onClick = { onChipClick(chip) },
+                isSelected = selectedCategory == chip,
+                onClick = { onCategoryClick(chip) },
             )
         }
     }
@@ -54,13 +54,13 @@ fun MainChipRow(
 
 @Preview(showBackground = true)
 @Composable
-private fun MainChipRowPreview() {
+private fun MainCategoryRowPreview() {
     PlaySoptTheme {
-        var selectedChip by remember { mutableStateOf(MainChipType.ALL) }
+        var selectedChip by remember { mutableStateOf(MainCategoryType.ALL) }
 
-        MainChipRow(
-            selectedChip = selectedChip,
-            onChipClick = { selectedChip = it },
+        MainCategoryRow(
+            selectedCategory = selectedChip,
+            onCategoryClick = { selectedChip = it },
         )
     }
 }
