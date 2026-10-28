@@ -50,7 +50,7 @@ fun MainRoute(
 ) {
     MainScreen(
         user = user,
-        modifier = Modifier.padding()
+        modifier = modifier.padding()
     )
 }
 
