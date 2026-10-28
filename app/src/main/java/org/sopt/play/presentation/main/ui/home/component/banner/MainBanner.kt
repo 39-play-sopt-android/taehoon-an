@@ -27,11 +27,12 @@ fun MainBannerRow(
         R.drawable.img_banner3,
     ),
 ) {
+    val bannerRatio = 328f / 195f
     if (imageList.isEmpty()) {
         Box(
             modifier = modifier
                 .fillMaxWidth()
-                .aspectRatio(2f / 1f)
+                .aspectRatio(bannerRatio)
                 .background(PlaySoptTheme.colors.gray2),
         )
         return
@@ -60,7 +61,7 @@ fun MainBannerRow(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .fillMaxWidth()
-                .aspectRatio(328f / 195f),
+                .aspectRatio(bannerRatio),
         )
     }
 }
