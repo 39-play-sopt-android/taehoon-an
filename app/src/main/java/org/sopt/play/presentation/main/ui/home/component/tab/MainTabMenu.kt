@@ -24,11 +24,8 @@ fun MainTabMenu(
     modifier: Modifier = Modifier,
 ) {
     val textStyle = PlaySoptTheme.typography.m18
-    val textColor = if (isSelected) {
-        PlaySoptTheme.colors.black
-    } else {
-        PlaySoptTheme.colors.gray3
-    }
+    val textColor = if (isSelected) PlaySoptTheme.colors.black else PlaySoptTheme.colors.gray3
+
     val indicatorColor = PlaySoptTheme.colors.black
 
     Column(

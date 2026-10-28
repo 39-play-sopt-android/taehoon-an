@@ -41,11 +41,8 @@ fun MainScreenProductCard(
     val priceColor = PlaySoptTheme.colors.black
     val favoriteColor = if (product.isFavorite) PlaySoptTheme.colors.red else PlaySoptTheme.colors.white
 
-    val favoriteRes = if (product.isFavorite) {
-        painterResource(R.drawable.ic_favorite_fill)
-    } else {
-        painterResource(R.drawable.ic_favorite_default)
-    }
+    val favoriteRes = if (product.isFavorite) painterResource(R.drawable.ic_favorite_fill) else painterResource(R.drawable.ic_favorite_default)
+
 
     Column(modifier = modifier.fillMaxWidth()) {
         Box {

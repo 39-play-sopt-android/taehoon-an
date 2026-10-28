@@ -25,23 +25,14 @@ fun MainChip(
 ) {
     val textStyle = PlaySoptTheme.typography.m14
 
-    val textColor = if (isSelected) {
-        PlaySoptTheme.colors.white
-    } else {
-        PlaySoptTheme.colors.gray5
-    }
+    val textColor = if (isSelected) PlaySoptTheme.colors.white else PlaySoptTheme.colors.gray5
 
-    val backgroundColor = if (isSelected) {
-        PlaySoptTheme.colors.gray5
-    } else {
-        PlaySoptTheme.colors.white
-    }
 
-    val borderColor = if (isSelected) {
-        PlaySoptTheme.colors.gray5
-    } else {
-        PlaySoptTheme.colors.gray2
-    }
+    val backgroundColor = if (isSelected) PlaySoptTheme.colors.gray5 else PlaySoptTheme.colors.white
+
+
+    val borderColor = if (isSelected) PlaySoptTheme.colors.gray5 else PlaySoptTheme.colors.gray2
+
 
     val shape = RoundedCornerShape(6.dp)
 
