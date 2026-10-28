@@ -1,10 +1,11 @@
 package org.sopt.play.presentation.main.ui.home.component.chip
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -15,34 +16,37 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 
+enum class MainChipType(val title: String) {
+    ALL("전체"),
+    TOPS("상의"),
+    PANTS("팬츠"),
+    DRESSES("원피스"),
+    OUTERWEAR("아우터"),
+    SKIRTS("스커트"),
+    SHOES("슈즈"),
+    BAGS("가방"),
+    UNDERWEAR_SLEEPWEAR("이너웨어/잠옷"),
+    PHONE_DECORATION("폰꾸미기"),
+}
+
 @Composable
 fun MainChipRow(
-    selectedChip: String,
-    onChipClick: (String) -> Unit,
+    selectedChip: MainChipType,
+    onChipClick: (MainChipType) -> Unit,
     modifier: Modifier = Modifier,
-    chipList: List<String> = listOf(
-        "전체",
-        "상의",
-        "팬츠",
-        "원피스",
-        "아우터",
-        "스커트",
-        "슈즈",
-        "가방",
-        "이너웨어/잠옷",
-        "폰꾸미기"
-    ),
 ) {
-    LazyRow(
-        modifier = modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.spacedBy(6.dp)
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .horizontalScroll(rememberScrollState())
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {
-        items(chipList) { item ->
+        MainChipType.entries.forEach { chip ->
             MainChip(
-                text = item,
-                isSelected = selectedChip == item,
-                onClick = { onChipClick(item) },
+                text = chip.title,
+                isSelected = selectedChip == chip,
+                onClick = { onChipClick(chip) },
             )
         }
     }
@@ -52,9 +56,7 @@ fun MainChipRow(
 @Composable
 private fun MainChipRowPreview() {
     PlaySoptTheme {
-        var selectedChip by remember {
-            mutableStateOf("전체")
-        }
+        var selectedChip by remember { mutableStateOf(MainChipType.ALL) }
 
         MainChipRow(
             selectedChip = selectedChip,

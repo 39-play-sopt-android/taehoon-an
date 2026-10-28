@@ -1,8 +1,9 @@
 package org.sopt.play.presentation.main.ui.home.component.tab
 
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -12,29 +13,32 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 
+enum class MainTab(val title: String) {
+    DOUBLE_POINTS("2배적립"),
+    HOME("홈"),
+    SELECTED("셀렉티드"),
+    BRAND("브랜드"),
+    BEAUTY("뷰티"),
+    LIFE("라이프"),
+    RANKING("랭킹"),
+}
+
 @Composable
 fun MainTabMenuRow(
-    selectedTab: String,
-    onTabClick: (String) -> Unit,
+    selectedTab: MainTab,
+    onTabClick: (MainTab) -> Unit,
     modifier: Modifier = Modifier,
-    tabList: List<String> = listOf(
-        "2배적립",
-        "홈",
-        "셀렉티드",
-        "브랜드",
-        "뷰티",
-        "라이프",
-        "랭킹"
-    ),
 ) {
-    LazyRow(
-        modifier = modifier.fillMaxWidth()
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .horizontalScroll(rememberScrollState()),
     ) {
-        items(tabList) { item ->
+        MainTab.entries.forEach { tab ->
             MainTabMenu(
-                text = item,
-                isSelected = selectedTab == item,
-                onClick = { onTabClick(item) },
+                text = tab.title,
+                isSelected = selectedTab == tab,
+                onClick = { onTabClick(tab) },
             )
         }
     }
@@ -44,13 +48,11 @@ fun MainTabMenuRow(
 @Composable
 private fun MainScreenChipPreview() {
     PlaySoptTheme {
-        var selectedChip by remember {
-            mutableStateOf("홈")
-        }
+        var selectedTab by remember { mutableStateOf(MainTab.HOME) }
 
         MainTabMenuRow(
-            selectedTab = selectedChip,
-            onTabClick = { selectedChip = it },
+            selectedTab = selectedTab,
+            onTabClick = { selectedTab = it },
         )
     }
 }
