@@ -31,8 +31,8 @@ enum class MainChipType(val title: String) {
 
 @Composable
 fun MainChipRow(
-    selectedChip: MainChipType,
     onChipClick: (MainChipType) -> Unit,
+    selectedChip: MainChipType = MainChipType.ALL,
     modifier: Modifier = Modifier,
 ) {
     Row(

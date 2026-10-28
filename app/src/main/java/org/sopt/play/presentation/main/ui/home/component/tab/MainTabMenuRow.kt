@@ -25,8 +25,8 @@ enum class MainTab(val title: String) {
 
 @Composable
 fun MainTabMenuRow(
-    selectedTab: MainTab,
     onTabClick: (MainTab) -> Unit,
+    selectedTab: MainTab = MainTab.HOME,
     modifier: Modifier = Modifier,
 ) {
     Row(
