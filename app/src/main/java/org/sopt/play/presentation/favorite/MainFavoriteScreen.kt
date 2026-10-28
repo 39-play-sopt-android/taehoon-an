@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.main.ui.favorite
+package org.sopt.play.presentation.favorite
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize

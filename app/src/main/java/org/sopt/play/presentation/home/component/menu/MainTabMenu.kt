@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.main.ui.home.component.menu
+package org.sopt.play.presentation.home.component.menu
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

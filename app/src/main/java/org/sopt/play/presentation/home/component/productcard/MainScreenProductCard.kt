@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.main.ui.home.component.productcard
+package org.sopt.play.presentation.home.component.productcard
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import org.sopt.play.R
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.util.noRippleClickable
-import org.sopt.play.presentation.main.ui.home.model.ProductModel
+import org.sopt.play.presentation.home.model.ProductModel
 
 @Composable
 fun MainScreenProductCard(

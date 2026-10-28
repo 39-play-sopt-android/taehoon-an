@@ -1,4 +1,4 @@
-package org.sopt.play.presentation
+package org.sopt.play.presentation.main
 
 import android.os.Bundle
 import android.widget.Toast

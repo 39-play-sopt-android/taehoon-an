@@ -15,11 +15,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import org.sopt.play.R
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.data.model.UserModel
+import org.sopt.play.presentation.favorite.MainFavoriteScreen
+import org.sopt.play.presentation.home.MainHomeScreen
 import org.sopt.play.presentation.main.component.MainScreenBottomBar
 import org.sopt.play.presentation.main.component.MainScreenTopBar
-import org.sopt.play.presentation.main.ui.favorite.MainFavoriteScreen
-import org.sopt.play.presentation.main.ui.home.MainHomeScreen
-import org.sopt.play.presentation.main.ui.my.MainMyScreen
+import org.sopt.play.presentation.my.MainMyScreen
 
 enum class MainTab(
     val label: String,

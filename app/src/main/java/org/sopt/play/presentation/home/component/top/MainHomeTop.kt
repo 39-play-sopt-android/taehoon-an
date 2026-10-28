@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.main.ui.home.component.top
+package org.sopt.play.presentation.home.component.top
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -6,8 +6,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
-import org.sopt.play.presentation.main.ui.home.component.category.MainCategoryType
-import org.sopt.play.presentation.main.ui.home.component.menu.MainMenuType
+import org.sopt.play.presentation.home.component.category.MainCategoryType
+import org.sopt.play.presentation.home.component.menu.MainMenuType
 
 @Composable
 fun MainHomeTop(

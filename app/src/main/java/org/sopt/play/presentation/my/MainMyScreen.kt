@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.main.ui.my
+package org.sopt.play.presentation.my
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.fillMaxSize

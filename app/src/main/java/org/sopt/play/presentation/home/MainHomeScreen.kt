@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.main.ui.home
+package org.sopt.play.presentation.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -21,13 +21,13 @@ import androidx.compose.ui.unit.dp
 import org.sopt.play.R
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.data.model.UserModel
-import org.sopt.play.presentation.main.ui.home.component.banner.MainBannerRow
-import org.sopt.play.presentation.main.ui.home.component.category.MainCategoryRow
-import org.sopt.play.presentation.main.ui.home.component.category.MainCategoryType
-import org.sopt.play.presentation.main.ui.home.component.menu.MainTabMenuRow
-import org.sopt.play.presentation.main.ui.home.component.menu.MainMenuType
-import org.sopt.play.presentation.main.ui.home.component.productcard.MainScreenProductCard
-import org.sopt.play.presentation.main.ui.home.model.ProductModel
+import org.sopt.play.presentation.home.component.banner.MainBannerRow
+import org.sopt.play.presentation.home.component.category.MainCategoryRow
+import org.sopt.play.presentation.home.component.category.MainCategoryType
+import org.sopt.play.presentation.home.component.menu.MainTabMenuRow
+import org.sopt.play.presentation.home.component.menu.MainMenuType
+import org.sopt.play.presentation.home.component.productcard.MainScreenProductCard
+import org.sopt.play.presentation.home.model.ProductModel
 
 @Composable
 fun MainHomeScreen(

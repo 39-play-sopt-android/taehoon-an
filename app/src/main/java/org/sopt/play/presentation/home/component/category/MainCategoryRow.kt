@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.main.ui.home.component.category
+package org.sopt.play.presentation.home.component.category
 
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement

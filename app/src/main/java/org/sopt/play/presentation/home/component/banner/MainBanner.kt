@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.main.ui.home.component.banner
+package org.sopt.play.presentation.home.component.banner
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
