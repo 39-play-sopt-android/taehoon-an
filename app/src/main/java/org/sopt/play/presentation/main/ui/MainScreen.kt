@@ -108,7 +108,7 @@ fun MainScreen(
 fun MainMyScreenPreview() {
     PlaySoptTheme {
         MainScreen(
-            tab = MainTab.MY,
+            tab = MainTab.HOME,
             modifier = Modifier.fillMaxSize(),
             user = UserModel(name = "김솝트", email = "abc@email.com", password = "123456"),
             )

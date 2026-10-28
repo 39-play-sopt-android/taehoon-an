@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import org.sopt.play.R
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.util.noRippleClickable
-import org.sopt.play.data.model.ProductModel
+import org.sopt.play.presentation.main.ui.home.model.ProductModel
 
 @Composable
 fun MainScreenProductCard(

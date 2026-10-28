@@ -15,10 +15,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.sopt.play.R
-import org.sopt.play.data.model.ProductModel
 import org.sopt.play.data.model.UserModel
 import org.sopt.play.presentation.main.ui.home.component.productcard.MainScreenProductCard
 import org.sopt.play.presentation.main.ui.home.component.top.MainHomeTop
+import org.sopt.play.presentation.main.ui.home.model.ProductModel
 
 @Composable
 fun MainHomeScreen(
