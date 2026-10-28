@@ -16,7 +16,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import org.sopt.play.R
 import org.sopt.play.data.model.UserModel
+import org.sopt.play.presentation.main.ui.home.component.chip.MainChipType
 import org.sopt.play.presentation.main.ui.home.component.productcard.MainScreenProductCard
+import org.sopt.play.presentation.main.ui.home.component.tab.MainTabType
 import org.sopt.play.presentation.main.ui.home.component.top.MainHomeTop
 import org.sopt.play.presentation.main.ui.home.model.ProductModel
 
@@ -25,8 +27,8 @@ fun MainHomeScreen(
     user: UserModel?,
     modifier: Modifier = Modifier,
 ) {
-    var selectedTab by rememberSaveable { mutableStateOf("홈") }
-    var selectedChip by rememberSaveable { mutableStateOf("전체") }
+    var selectedTab by rememberSaveable { mutableStateOf(MainTabType.HOME) }
+    var selectedChip by rememberSaveable { mutableStateOf(MainChipType.ALL) }
     val userName = user?.name ?: "김솝트"
 
     var itemList by rememberSaveable {
