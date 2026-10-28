@@ -13,15 +13,17 @@ import androidx.compose.ui.unit.dp
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.presentation.main.ui.home.component.banner.MainBannerRow
 import org.sopt.play.presentation.main.ui.home.component.chip.MainChipRow
+import org.sopt.play.presentation.main.ui.home.component.chip.MainChipType
 import org.sopt.play.presentation.main.ui.home.component.tab.MainTabMenuRow
+import org.sopt.play.presentation.main.ui.home.component.tab.MainTabType
 
 @Composable
 fun MainHomeTop(
     userName: String,
-    selectedTab: String,
-    selectedChip: String,
-    onTabClick: (String) -> Unit,
-    onChipClick: (String) -> Unit,
+    selectedTab: MainTabType,
+    selectedChip: MainChipType,
+    onTabClick: (MainTabType) -> Unit,
+    onChipClick: (MainChipType) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -60,8 +62,8 @@ private fun MainHomeTop() {
     PlaySoptTheme {
         MainHomeTop(
             userName = "김솝트",
-            selectedTab = "전체",
-            selectedChip = "전체",
+            selectedTab = MainTabType.HOME,
+            selectedChip = MainChipType.ALL,
             onTabClick = {},
             onChipClick = {},
         )

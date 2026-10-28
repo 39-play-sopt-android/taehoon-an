@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 
-enum class MainTab(val title: String) {
+enum class MainTabType(val title: String) {
     DOUBLE_POINTS("2배적립"),
     HOME("홈"),
     SELECTED("셀렉티드"),
@@ -25,8 +25,8 @@ enum class MainTab(val title: String) {
 
 @Composable
 fun MainTabMenuRow(
-    onTabClick: (MainTab) -> Unit,
-    selectedTab: MainTab = MainTab.HOME,
+    selectedTab: MainTabType,
+    onTabClick: (MainTabType) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -34,7 +34,7 @@ fun MainTabMenuRow(
             .fillMaxWidth()
             .horizontalScroll(rememberScrollState()),
     ) {
-        MainTab.entries.forEach { tab ->
+        MainTabType.entries.forEach { tab ->
             MainTabMenu(
                 text = tab.title,
                 isSelected = selectedTab == tab,
@@ -48,7 +48,7 @@ fun MainTabMenuRow(
 @Composable
 private fun MainScreenChipPreview() {
     PlaySoptTheme {
-        var selectedTab by remember { mutableStateOf(MainTab.HOME) }
+        var selectedTab by remember { mutableStateOf(MainTabType.HOME) }
 
         MainTabMenuRow(
             selectedTab = selectedTab,
