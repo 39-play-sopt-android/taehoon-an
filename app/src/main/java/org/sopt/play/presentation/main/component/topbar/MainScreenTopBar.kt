@@ -17,6 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.play.R
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
+import org.sopt.play.core.util.noRippleClickable
 
 @Composable
 fun MainScreenTopBar(
@@ -50,7 +51,11 @@ fun MainScreenTopBar(
                 painter = painterResource(R.drawable.ic_search_default),
                 contentDescription = "검색",
                 tint = searchColor,
-                modifier = Modifier.size(28.dp),
+                modifier = Modifier
+                    .size(28.dp)
+                    .noRippleClickable(
+                        onClick = onSearchClick
+                    ),
             )
         }
     }

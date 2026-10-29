@@ -10,6 +10,7 @@ import org.sopt.play.data.model.UserModel
 import org.sopt.play.presentation.login.ui.LoginRoute
 import org.sopt.play.presentation.main.ui.MainRoute
 import org.sopt.play.presentation.register.ui.RegisterRoute
+import org.sopt.play.presentation.search.SearchRoute
 
 @Composable
 fun AppNavHost(
@@ -21,7 +22,7 @@ fun AppNavHost(
 
     NavHost(
         navController = navController,
-        startDestination = LoginRoute,
+        startDestination = MainRoute,
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
         popEnterTransition = { EnterTransition.None },
@@ -62,8 +63,17 @@ fun AppNavHost(
 
         composable<MainRoute> {
             MainRoute(
-                user = user
+                user = user,
+                onSearchClick = {
+                    navController.navigate(SearchRoute) {
+                        launchSingleTop = true
+                    }
+                },
             )
+        }
+
+        composable<SearchRoute> {
+            SearchRoute()
         }
     }
 }

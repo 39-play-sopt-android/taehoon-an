@@ -46,10 +46,12 @@ enum class MainTab(
 @Composable
 fun MainRoute(
     user: UserModel?,
+    onSearchClick:() -> Unit,
     modifier: Modifier = Modifier
 ) {
     MainScreen(
         user = user,
+        onSearchClick = onSearchClick,
         modifier = modifier.padding()
     )
 }
@@ -57,6 +59,7 @@ fun MainRoute(
 @Composable
 fun MainScreen(
     user: UserModel?,
+    onSearchClick:() -> Unit,
     tab: MainTab = MainTab.HOME,
     modifier: Modifier = Modifier,
 ) {
@@ -75,7 +78,7 @@ fun MainScreen(
         },
         topBar = {
             MainScreenTopBar(
-                onSearchClick = { },
+                onSearchClick = onSearchClick,
                 modifier = Modifier.statusBarsPadding()
             )
         }
@@ -109,6 +112,7 @@ fun MainMyScreenPreview() {
     PlaySoptTheme {
         MainScreen(
             tab = MainTab.HOME,
+            onSearchClick = {},
             modifier = Modifier.fillMaxSize(),
             user = UserModel(name = "김솝트", email = "abc@email.com", password = "123456"),
             )
