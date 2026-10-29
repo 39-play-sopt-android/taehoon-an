@@ -1,6 +1,7 @@
 package org.sopt.play.presentation.home
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -17,6 +18,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.play.R
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
@@ -24,8 +26,8 @@ import org.sopt.play.data.model.UserModel
 import org.sopt.play.presentation.home.component.banner.MainBannerRow
 import org.sopt.play.presentation.home.component.category.MainCategoryRow
 import org.sopt.play.presentation.home.component.category.MainCategoryType
-import org.sopt.play.presentation.home.component.menu.MainTabMenuRow
 import org.sopt.play.presentation.home.component.menu.MainMenuType
+import org.sopt.play.presentation.home.component.menu.MainTabMenuRow
 import org.sopt.play.presentation.home.component.productcard.MainScreenProductCard
 import org.sopt.play.presentation.home.model.ProductModel
 
@@ -115,29 +117,35 @@ fun MainHomeScreen(
         }
 
         item(span = { GridItemSpan(maxLineSpan) }) {
-            MainBannerRow()
+            Column{
+                MainBannerRow()
 
-            Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(20.dp))
+            }
         }
 
         item(span = { GridItemSpan(maxLineSpan) }) {
-            Text(
-                text = "${userName}님을 위한 추천 아이템",
-                modifier = Modifier.padding(horizontal = 16.dp),
-                color = PlaySoptTheme.colors.black,
-                style = PlaySoptTheme.typography.m18,
-            )
+            Column {
+                Text(
+                    text = "${userName}님을 위한 추천 아이템",
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    color = PlaySoptTheme.colors.black,
+                    style = PlaySoptTheme.typography.m18,
+                )
 
-            Spacer(modifier = Modifier.height(12.dp))
+                Spacer(modifier = Modifier.height(12.dp))
+            }
         }
 
         item(span = { GridItemSpan(maxLineSpan)}) {
-            MainCategoryRow(
-                selectedCategory = selectedChip,
-                onCategoryClick = { selectedChip = it },
+            Column{
+                MainCategoryRow(
+                    selectedCategory = selectedChip,
+                    onCategoryClick = { selectedChip = it },
                 )
 
-            Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(20.dp))
+            }
         }
 
         itemsIndexed(itemList) { index, item ->
@@ -154,5 +162,16 @@ fun MainHomeScreen(
                 },
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MainHomeScreenPreview() {
+    PlaySoptTheme {
+        MainHomeScreen(
+            user = UserModel(name = "김솝트", email = "abc@email.com", password = "123456"),
+            modifier = Modifier
+        )
     }
 }
