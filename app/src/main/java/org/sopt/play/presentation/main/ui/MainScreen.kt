@@ -16,7 +16,7 @@ import org.sopt.play.R
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.data.model.UserModel
 import org.sopt.play.presentation.favorite.MainFavoriteScreen
-import org.sopt.play.presentation.home.MainHomeScreen
+import org.sopt.play.presentation.home.MainHomeRoute
 import org.sopt.play.presentation.main.component.MainScreenBottomBar
 import org.sopt.play.presentation.main.component.MainScreenTopBar
 import org.sopt.play.presentation.my.MainMyScreen
@@ -81,20 +81,20 @@ fun MainScreen(
         }
     ) { innerPadding ->
         when (selectedTab) {
-            MainTab.HOME -> MainHomeScreen(
+            MainTab.HOME -> MainHomeRoute(
                 user = user,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
             )
 
-            MainTab.FAVORITE -> MainFavoriteScreen(
+            MainTab.FAVORITE -> MainFavoriteScreen( //Route변경 예정
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
             )
 
-            MainTab.MY -> MainMyScreen(
+            MainTab.MY -> MainMyScreen( //Route 변경 예정
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
