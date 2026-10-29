@@ -16,7 +16,7 @@ import org.sopt.play.R
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.data.model.UserModel
 import org.sopt.play.presentation.favorite.MainFavoriteScreen
-import org.sopt.play.presentation.home.MainHomeRoute
+import org.sopt.play.presentation.home.ui.MainHomeRoute
 import org.sopt.play.presentation.main.component.MainScreenBottomBar
 import org.sopt.play.presentation.main.component.MainScreenTopBar
 import org.sopt.play.presentation.my.MainMyScreen

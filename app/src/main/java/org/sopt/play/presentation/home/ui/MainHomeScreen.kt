@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.home
+package org.sopt.play.presentation.home.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -26,6 +26,8 @@ import org.sopt.play.presentation.home.component.banner.MainBannerRow
 import org.sopt.play.presentation.home.component.category.MainCategoryRow
 import org.sopt.play.presentation.home.component.menu.MainTabMenuRow
 import org.sopt.play.presentation.home.component.productcard.MainScreenProductCard
+import org.sopt.play.presentation.home.state.MainHomeAction
+import org.sopt.play.presentation.home.state.MainHomeUiState
 
 @Composable
 fun MainHomeRoute(

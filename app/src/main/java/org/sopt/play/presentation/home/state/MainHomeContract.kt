@@ -1,4 +1,4 @@
-package org.sopt.play.presentation.home
+package org.sopt.play.presentation.home.state
 
 import org.sopt.play.R
 import org.sopt.play.presentation.home.component.category.MainCategoryType

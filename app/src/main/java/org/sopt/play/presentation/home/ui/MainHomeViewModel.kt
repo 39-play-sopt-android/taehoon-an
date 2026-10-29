@@ -1,10 +1,12 @@
-package org.sopt.play.presentation.home
+package org.sopt.play.presentation.home.ui
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import org.sopt.play.presentation.home.state.MainHomeAction
+import org.sopt.play.presentation.home.state.MainHomeUiState
 
 class MainHomeViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(MainHomeUiState())
