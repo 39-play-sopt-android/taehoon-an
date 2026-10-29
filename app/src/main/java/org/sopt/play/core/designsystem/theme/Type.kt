@@ -20,13 +20,17 @@ data class PlaySoptTypography(
 
     // sb
     val sb14: TextStyle,
-    val sb16: TextStyle
+    val sb16: TextStyle,
+
+    // r
+    val r14: TextStyle
 )
 
 private val pretendardFontFamily = FontFamily(
     Font(R.font.pretendard_medium, weight = FontWeight.Medium),
     Font(R.font.pretendard_semibold, weight = FontWeight.SemiBold),
     Font(R.font.pretendard_bold, weight = FontWeight.Bold),
+    Font(R.font.pretendard_regular, weight = FontWeight.Normal)
 )
 
 private object TypographyDefaults {
@@ -41,6 +45,10 @@ private object TypographyDefaults {
     // sb
     val SBLetterSpacing = (-0.01).em
     val SBLineHeight = 1.2.em
+
+    // r
+    val RLetterSpacing = (-0.01).em
+    val RLineHeight = 1.2.em
 }
 
 val defaultPlaySoptTypography = PlaySoptTypography(
@@ -87,4 +95,13 @@ val defaultPlaySoptTypography = PlaySoptTypography(
         lineHeight = TypographyDefaults.SBLineHeight,
         letterSpacing = TypographyDefaults.SBLetterSpacing
     ),
+
+    //r
+    r14 = TextStyle(
+        fontFamily = pretendardFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 14.sp,
+        lineHeight = TypographyDefaults.RLineHeight,
+        letterSpacing = TypographyDefaults.RLetterSpacing
+    )
 )
