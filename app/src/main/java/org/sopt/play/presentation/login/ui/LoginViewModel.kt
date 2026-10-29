@@ -33,7 +33,7 @@ class LoginViewModel : ViewModel() {
 
     private fun requestLogin() {
         val state = _uiState.value
-        if (state.isLoginEnabled) return
+        if (!state.isLoginEnabled) return
 
         val email = state.emailState.text.toString()
         val password = state.passwordState.text.toString()

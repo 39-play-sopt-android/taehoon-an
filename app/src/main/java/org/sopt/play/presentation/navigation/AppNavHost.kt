@@ -22,7 +22,7 @@ fun AppNavHost(
 
     NavHost(
         navController = navController,
-        startDestination = MainRoute,
+        startDestination = LoginRoute,
         enterTransition = { EnterTransition.None },
         exitTransition = { ExitTransition.None },
         popEnterTransition = { EnterTransition.None },
