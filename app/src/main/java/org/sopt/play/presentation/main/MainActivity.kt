@@ -8,6 +8,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import org.sopt.play.PlayApplication
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.data.model.UserModel
 import org.sopt.play.data.model.compareToAccount
@@ -18,6 +19,7 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val loginManager = (application as PlayApplication).loginManager
         enableEdgeToEdge()
         setContent {
             PlaySoptTheme {

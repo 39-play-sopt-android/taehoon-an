@@ -16,7 +16,7 @@ import org.sopt.play.R
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.data.model.UserModel
 import org.sopt.play.presentation.favorite.MainFavoriteScreen
-import org.sopt.play.presentation.home.MainHomeScreen
+import org.sopt.play.presentation.home.ui.MainHomeRoute
 import org.sopt.play.presentation.main.component.MainScreenBottomBar
 import org.sopt.play.presentation.main.component.MainScreenTopBar
 import org.sopt.play.presentation.my.MainMyScreen
@@ -46,10 +46,12 @@ enum class MainTab(
 @Composable
 fun MainRoute(
     user: UserModel?,
+    onSearchClick:() -> Unit,
     modifier: Modifier = Modifier
 ) {
     MainScreen(
         user = user,
+        onSearchClick = onSearchClick,
         modifier = modifier.padding()
     )
 }
@@ -57,6 +59,7 @@ fun MainRoute(
 @Composable
 fun MainScreen(
     user: UserModel?,
+    onSearchClick:() -> Unit,
     tab: MainTab = MainTab.HOME,
     modifier: Modifier = Modifier,
 ) {
@@ -75,26 +78,26 @@ fun MainScreen(
         },
         topBar = {
             MainScreenTopBar(
-                onSearchClick = { },
+                onSearchClick = onSearchClick,
                 modifier = Modifier.statusBarsPadding()
             )
         }
     ) { innerPadding ->
         when (selectedTab) {
-            MainTab.HOME -> MainHomeScreen(
+            MainTab.HOME -> MainHomeRoute(
                 user = user,
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
             )
 
-            MainTab.FAVORITE -> MainFavoriteScreen(
+            MainTab.FAVORITE -> MainFavoriteScreen( //Route변경 예정
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
             )
 
-            MainTab.MY -> MainMyScreen(
+            MainTab.MY -> MainMyScreen( //Route 변경 예정
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
@@ -109,6 +112,7 @@ fun MainMyScreenPreview() {
     PlaySoptTheme {
         MainScreen(
             tab = MainTab.HOME,
+            onSearchClick = {},
             modifier = Modifier.fillMaxSize(),
             user = UserModel(name = "김솝트", email = "abc@email.com", password = "123456"),
             )

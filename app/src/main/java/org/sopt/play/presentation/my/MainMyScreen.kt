@@ -33,6 +33,7 @@ fun MainHomeScreenPreview() {
             tab = MainTab.HOME,
             modifier = Modifier.fillMaxSize(),
             user = UserModel(name = "김솝트", email = "abc@email.com", password = "123456"),
+            onSearchClick = { },
         )
     }
 }
