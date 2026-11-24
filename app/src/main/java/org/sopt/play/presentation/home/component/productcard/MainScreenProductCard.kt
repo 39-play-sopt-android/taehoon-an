@@ -119,6 +119,7 @@ private fun MainScreenProductCardPreview() {
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
                 MainScreenProductCard(
                     product = ProductModel(
+                        productId = 1,
                         storeName = "스토어명 최대 한 줄",
                         productName = "상품명 최대 한 줄",
                         discountRate = 49,
@@ -132,6 +133,7 @@ private fun MainScreenProductCardPreview() {
 
                 MainScreenProductCard(
                     product = ProductModel(
+                        productId = 2,
                         storeName = "스토어명 최대 한 줄",
                         productName = "상품명 최대 한 줄",
                         discountRate = 49,

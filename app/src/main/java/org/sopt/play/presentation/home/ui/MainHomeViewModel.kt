@@ -35,7 +35,7 @@ class MainHomeViewModel : ViewModel() {
             is MainHomeAction.FavoriteClicked -> {
                 _uiState.update {
                     it.copy(productList = it.productList.map { product ->
-                        if (product == action.product) {
+                        if (product.productId == action.product.productId) {
                             product.copy(isFavorite = !product.isFavorite)
                         } else {
                             product
