@@ -13,7 +13,7 @@ data class LoginUiState(
         get() {
             val email = emailState.text.toString()
 
-            return email.isNotEmpty() &&
+            return email.isNotBlank() &&
                     !Patterns.EMAIL_ADDRESS.matcher(email).matches()
         }
 
@@ -21,12 +21,12 @@ data class LoginUiState(
         get() {
             val password = passwordState.text
 
-            return password.isNotEmpty() && password.length < 6
+            return password.isNotBlank() && password.length < 6
         }
 
     val isLoginEnabled: Boolean
-        get() = emailState.text.isNotEmpty() &&
-                passwordState.text.isNotEmpty() &&
+        get() = emailState.text.isNotBlank() &&
+                passwordState.text.isNotBlank() &&
                 !isEmailError &&
                 !isPasswordError &&
                 !isLoading

@@ -16,7 +16,7 @@ data class RegisterUiState(
         get() {
             val email = emailState.text.toString()
 
-            return email.isNotEmpty() &&
+            return email.isNotBlank() &&
                     !Patterns.EMAIL_ADDRESS.matcher(email).matches()
         }
 
@@ -24,7 +24,7 @@ data class RegisterUiState(
         get() {
             val password = passwordState.text
 
-            return password.isNotEmpty() && password.length < 6
+            return password.isNotBlank() && password.length < 6
         }
 
     val isPasswordCheckError: Boolean
@@ -32,17 +32,14 @@ data class RegisterUiState(
             val password = passwordState.text.toString()
             val passwordCheck = passwordCheckState.text.toString()
 
-            return passwordCheck.isNotEmpty() && passwordCheck != password
+            return passwordCheck.isNotBlank() && passwordCheck != password
         }
 
     val isRegisterEnabled: Boolean
-        get() = nameState.text.isNotBlank() && emailState.text.isNotEmpty() &&
+        get() = nameState.text.isNotBlank() &&
                 nameState.text.isNotBlank() &&
-                emailState.text.isNotEmpty() &&
                 emailState.text.isNotBlank() &&
-                passwordState.text.isNotEmpty() &&
                 passwordState.text.isNotBlank() &&
-                passwordCheckState.text.isNotEmpty() &&
                 passwordCheckState.text.isNotBlank() &&
                 !isEmailError &&
                 !isPasswordError &&
