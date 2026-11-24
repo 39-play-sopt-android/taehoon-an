@@ -1,6 +1,7 @@
 package org.sopt.play.core.local.login
 
 import android.content.Context
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -15,12 +16,14 @@ class LoginManager(context: Context) {
     private object Keys {
         val ID = stringPreferencesKey("id")
         val PASSWORD = stringPreferencesKey("password")
+        val IS_LOGGED_IN = booleanPreferencesKey("is_logged_in")
     }
 
     suspend fun saveLogin(id: String, password: String) {
         dataStore.edit { preferences ->
             preferences[Keys.ID] = id
             preferences[Keys.PASSWORD] = password
+            preferences[Keys.IS_LOGGED_IN] = false
         }
     }
 
@@ -36,10 +39,33 @@ class LoginManager(context: Context) {
         )
     }
 
-    suspend fun clearLogin() {
+    suspend fun login(id: String, password: String): Boolean {
+        var success = false
+
         dataStore.edit { preferences ->
-            preferences.remove(Keys.ID)
-            preferences.remove(Keys.PASSWORD)
+            success =
+                preferences[Keys.ID] == id &&
+                        preferences[Keys.PASSWORD] == password
+
+            if (success) {
+                preferences[Keys.IS_LOGGED_IN] = true
+            }
+        }
+
+        return success
+    }
+
+    suspend fun isLoggedIn(): Boolean {
+        val preferences = dataStore.data.first()
+
+        return preferences[Keys.IS_LOGGED_IN] == true &&
+                preferences[Keys.ID] != null &&
+                preferences[Keys.PASSWORD] != null
+    }
+
+    suspend fun logout() {
+        dataStore.edit { preferences ->
+            preferences[Keys.IS_LOGGED_IN] = false
         }
     }
 }
