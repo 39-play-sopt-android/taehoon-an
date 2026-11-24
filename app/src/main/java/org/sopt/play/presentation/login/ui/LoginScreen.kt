@@ -13,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
@@ -44,8 +43,6 @@ fun LoginRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     val lifecycleOwner = LocalLifecycleOwner.current
-    val currentOnLoginClick by rememberUpdatedState(onLoginClick)
-    val currentOnRegisterClick by rememberUpdatedState(onRegisterClick)
 
     LaunchedEffect(viewModel, lifecycleOwner) {
         lifecycleOwner.lifecycle.repeatOnLifecycle(
@@ -54,7 +51,7 @@ fun LoginRoute(
             viewModel.effect.collect { effect ->
                 when (effect) {
                     is LoginEffect.RequestLogin -> {
-                        currentOnLoginClick(
+                        onLoginClick(
                             UserModel(
                                 email = effect.email,
                                 password = effect.password,
@@ -63,7 +60,7 @@ fun LoginRoute(
                     }
 
                     LoginEffect.NavigateToRegister -> {
-                        currentOnRegisterClick()
+                        onRegisterClick()
                     }
                 }
             }

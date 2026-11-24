@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
@@ -44,7 +43,6 @@ fun RegisterRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     val lifecycleOwner = LocalLifecycleOwner.current
-    val currentOnRegisterClick by rememberUpdatedState(onRegisterClick)
 
     LaunchedEffect(viewModel, lifecycleOwner) {
         lifecycleOwner.lifecycle.repeatOnLifecycle(
@@ -53,7 +51,7 @@ fun RegisterRoute(
             viewModel.effect.collect { effect ->
                 when (effect) {
                     is RegisterEffect.RequestRegister -> {
-                        currentOnRegisterClick(effect.user)
+                        onRegisterClick(effect.user)
                     }
                 }
             }
