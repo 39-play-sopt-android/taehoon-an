@@ -22,11 +22,11 @@ import androidx.compose.ui.unit.dp
 import org.sopt.play.R
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.util.noRippleClickable
-import org.sopt.play.presentation.home.model.ProductModel
+import org.sopt.play.presentation.home.model.HomeProductModel
 
 @Composable
-fun MainScreenProductCard(
-    product: ProductModel,
+fun HomeScreenProductCard(
+    product: HomeProductModel,
     onFavoriteClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -108,7 +108,7 @@ fun MainScreenProductCard(
 
 @Preview(showBackground = true)
 @Composable
-private fun MainScreenProductCardPreview() {
+private fun HomeScreenProductCardPreview() {
     PlaySoptTheme {
         Column(
             modifier = Modifier
@@ -117,8 +117,8 @@ private fun MainScreenProductCardPreview() {
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                MainScreenProductCard(
-                    product = ProductModel(
+                HomeScreenProductCard(
+                    product = HomeProductModel(
                         productId = 1,
                         storeName = "스토어명 최대 한 줄",
                         productName = "상품명 최대 한 줄",
@@ -131,8 +131,8 @@ private fun MainScreenProductCardPreview() {
                     modifier = Modifier.weight(1f),
                 )
 
-                MainScreenProductCard(
-                    product = ProductModel(
+                HomeScreenProductCard(
+                    product = HomeProductModel(
                         productId = 2,
                         storeName = "스토어명 최대 한 줄",
                         productName = "상품명 최대 한 줄",

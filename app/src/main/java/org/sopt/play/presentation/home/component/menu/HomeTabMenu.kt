@@ -18,7 +18,7 @@ import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.util.noRippleClickable
 
 @Composable
-fun MainTabMenu(
+fun HomeTabMenu(
     text: String,
     isSelected: Boolean,
     onClick: () -> Unit,
@@ -56,16 +56,16 @@ fun MainTabMenu(
 
 @Preview(showBackground = true)
 @Composable
-private fun MainTabMenuPreview() {
+private fun HomeTabMenuPreview() {
     PlaySoptTheme {
         Row() {
-            MainTabMenu(
+            HomeTabMenu(
                 text = "메뉴",
                 isSelected = true,
                 onClick = {},
             )
 
-            MainTabMenu(
+            HomeTabMenu(
                 text = "메뉴",
                 isSelected = false,
                 onClick = {},

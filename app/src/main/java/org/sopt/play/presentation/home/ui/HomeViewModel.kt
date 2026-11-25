@@ -5,34 +5,34 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import org.sopt.play.presentation.home.state.MainHomeAction
-import org.sopt.play.presentation.home.state.MainHomeUiState
+import org.sopt.play.presentation.home.state.HomeAction
+import org.sopt.play.presentation.home.state.HomeUiState
 
-class MainHomeViewModel : ViewModel() {
-    private val _uiState = MutableStateFlow(MainHomeUiState())
-    val uiState: StateFlow<MainHomeUiState> = _uiState.asStateFlow()
+class HomeViewModel : ViewModel() {
+    private val _uiState = MutableStateFlow(HomeUiState())
+    val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
-    fun onAction(action: MainHomeAction) {
+    fun onAction(action: HomeAction) {
         when (action) {
-            is MainHomeAction.UserNameChanged -> {
+            is HomeAction.UserNameChanged -> {
                 _uiState.update {
                     it.copy(userName = action.name)
                 }
             }
 
-            is MainHomeAction.MenuClicked -> {
+            is HomeAction.MenuClicked -> {
                 _uiState.update {
                     it.copy(selectedMenu = action.menu)
                 }
             }
 
-            is MainHomeAction.CategoryClicked -> {
+            is HomeAction.CategoryClicked -> {
                 _uiState.update {
                     it.copy(selectedCategory = action.category)
                 }
             }
 
-            is MainHomeAction.FavoriteClicked -> {
+            is HomeAction.FavoriteClicked -> {
                 _uiState.update {
                     it.copy(productList = it.productList.map { product ->
                         if (product.productId == action.product.productId) {

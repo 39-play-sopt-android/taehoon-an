@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 
-enum class MainMenuType(val title: String) {
+enum class HomeMenuType(val title: String) {
     DOUBLE_POINTS("2배적립"),
     HOME("홈"),
     SELECTED("셀렉티드"),
@@ -24,9 +24,9 @@ enum class MainMenuType(val title: String) {
 }
 
 @Composable
-fun MainTabMenuRow(
-    selectedMenu: MainMenuType,
-    onMenuClick: (MainMenuType) -> Unit,
+fun HomeTabMenuRow(
+    selectedMenu: HomeMenuType,
+    onMenuClick: (HomeMenuType) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -34,8 +34,8 @@ fun MainTabMenuRow(
             .fillMaxWidth()
             .horizontalScroll(rememberScrollState()),
     ) {
-        MainMenuType.entries.forEach { tab ->
-            MainTabMenu(
+        HomeMenuType.entries.forEach { tab ->
+            HomeTabMenu(
                 text = tab.title,
                 isSelected = selectedMenu == tab,
                 onClick = { onMenuClick(tab) },
@@ -46,11 +46,11 @@ fun MainTabMenuRow(
 
 @Preview(showBackground = true)
 @Composable
-private fun MainMenuRowPreview() {
+private fun HomeTabMenuRowPreview() {
     PlaySoptTheme {
-        var selectedTab by remember { mutableStateOf(MainMenuType.HOME) }
+        var selectedTab by remember { mutableStateOf(HomeMenuType.HOME) }
 
-        MainTabMenuRow(
+        HomeTabMenuRow(
             selectedMenu = selectedTab,
             onMenuClick = { selectedTab = it },
         )

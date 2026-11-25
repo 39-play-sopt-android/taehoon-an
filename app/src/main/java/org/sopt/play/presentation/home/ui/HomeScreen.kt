@@ -22,26 +22,26 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.data.model.UserModel
-import org.sopt.play.presentation.home.component.banner.MainBannerRow
-import org.sopt.play.presentation.home.component.category.MainCategoryRow
-import org.sopt.play.presentation.home.component.menu.MainTabMenuRow
-import org.sopt.play.presentation.home.component.productcard.MainScreenProductCard
-import org.sopt.play.presentation.home.state.MainHomeAction
-import org.sopt.play.presentation.home.state.MainHomeUiState
+import org.sopt.play.presentation.home.component.banner.HomeBannerRow
+import org.sopt.play.presentation.home.component.category.HomeCategoryRow
+import org.sopt.play.presentation.home.component.menu.HomeTabMenuRow
+import org.sopt.play.presentation.home.component.productcard.HomeScreenProductCard
+import org.sopt.play.presentation.home.state.HomeAction
+import org.sopt.play.presentation.home.state.HomeUiState
 
 @Composable
-fun MainHomeRoute(
+fun HomeRoute(
     user: UserModel?,
-    viewModel: MainHomeViewModel = viewModel(),
+    viewModel: HomeViewModel = viewModel(),
     modifier: Modifier = Modifier,
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(viewModel) {
-        viewModel.onAction(MainHomeAction.UserNameChanged(user?.name ?: "김솝트"))
+        viewModel.onAction(HomeAction.UserNameChanged(user?.name ?: "김솝트"))
     }
 
-    MainHomeScreen(
+    HomeScreen(
         uiState = uiState,
         onAction = viewModel::onAction,
         modifier = modifier,
@@ -49,9 +49,9 @@ fun MainHomeRoute(
 }
 
 @Composable
-fun MainHomeScreen(
-    uiState: MainHomeUiState,
-    onAction: (MainHomeAction) -> Unit,
+fun HomeScreen(
+    uiState: HomeUiState,
+    onAction: (HomeAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyVerticalGrid(
@@ -61,15 +61,15 @@ fun MainHomeScreen(
         horizontalArrangement = Arrangement.spacedBy(8.dp),
     ) {
         item(span = { GridItemSpan(maxLineSpan) }) {
-            MainTabMenuRow(
+            HomeTabMenuRow(
                 selectedMenu = uiState.selectedMenu,
-                onMenuClick = { onAction(MainHomeAction.MenuClicked(it)) },
+                onMenuClick = { onAction(HomeAction.MenuClicked(it)) },
             )
         }
 
         item(span = { GridItemSpan(maxLineSpan) }) {
             Column {
-                MainBannerRow()
+                HomeBannerRow()
 
                 Spacer(modifier = Modifier.height(20.dp))
             }
@@ -90,9 +90,9 @@ fun MainHomeScreen(
 
         item(span = { GridItemSpan(maxLineSpan) }) {
             Column {
-                MainCategoryRow(
+                HomeCategoryRow(
                     selectedCategory = uiState.selectedCategory,
-                    onCategoryClick = { onAction(MainHomeAction.CategoryClicked(it)) },
+                    onCategoryClick = { onAction(HomeAction.CategoryClicked(it)) },
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))
@@ -100,10 +100,10 @@ fun MainHomeScreen(
         }
 
         items(items = uiState.productList) { product ->
-            MainScreenProductCard(
+            HomeScreenProductCard(
                 product = product,
                 onFavoriteClick = {
-                    onAction(MainHomeAction.FavoriteClicked(product))
+                    onAction(HomeAction.FavoriteClicked(product))
                 },
             )
         }
@@ -112,10 +112,10 @@ fun MainHomeScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun MainHomeScreenPreview() {
+fun HomeScreenPreview() {
     PlaySoptTheme {
-        MainHomeScreen(
-            uiState = MainHomeUiState(),
+        HomeScreen(
+            uiState = HomeUiState(),
             onAction = { },
         )
     }

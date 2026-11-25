@@ -17,7 +17,7 @@ import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.core.util.noRippleClickable
 
 @Composable
-fun MainCategoryChip(
+fun HomeCategoryChip(
     text: String,
     isSelected: Boolean,
     onClick: () -> Unit,
@@ -50,7 +50,7 @@ fun MainCategoryChip(
 
 @Preview(showBackground = true)
 @Composable
-private fun MainCategoryChipPreview() {
+private fun HomeCategoryChipPreview() {
     PlaySoptTheme {
         Column(
             modifier = Modifier
@@ -58,13 +58,13 @@ private fun MainCategoryChipPreview() {
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             Row(horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-                MainCategoryChip(
+                HomeCategoryChip(
                     text = "칩",
                     isSelected = false,
                     onClick = {},
                 )
 
-                MainCategoryChip(
+                HomeCategoryChip(
                     text = "칩",
                     isSelected = true,
                     onClick = {},

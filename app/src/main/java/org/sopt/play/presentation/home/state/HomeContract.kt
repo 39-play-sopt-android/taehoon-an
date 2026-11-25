@@ -2,15 +2,15 @@ package org.sopt.play.presentation.home.state
 
 import org.sopt.play.R
 import org.sopt.play.presentation.home.component.category.MainCategoryType
-import org.sopt.play.presentation.home.component.menu.MainMenuType
-import org.sopt.play.presentation.home.model.ProductModel
+import org.sopt.play.presentation.home.component.menu.HomeMenuType
+import org.sopt.play.presentation.home.model.HomeProductModel
 
-data class MainHomeUiState(
+data class HomeUiState(
     val userName: String = "김솝트",
-    val selectedMenu: MainMenuType = MainMenuType.HOME,
+    val selectedMenu: HomeMenuType = HomeMenuType.HOME,
     val selectedCategory: MainCategoryType = MainCategoryType.ALL,
-    val productList: List<ProductModel> = listOf(
-        ProductModel(
+    val productList: List<HomeProductModel> = listOf(
+        HomeProductModel(
             productId = 1,
             storeName = "트렌디어패럴",
             productName = "데일리 브이넥 니트 가디건",
@@ -19,7 +19,7 @@ data class MainHomeUiState(
             isFavorite = false,
             imageRes = R.drawable.dummy1,
         ),
-        ProductModel(
+        HomeProductModel(
             productId = 2,
             storeName = "슬로우앤드",
             productName = "가을 베이직 코튼 셔츠",
@@ -28,7 +28,7 @@ data class MainHomeUiState(
             isFavorite = true,
             imageRes = R.drawable.dummy2,
         ),
-        ProductModel(
+        HomeProductModel(
             productId = 3,
             storeName = "어텀",
             productName = "보들보들 슬림핏 골지 티셔츠",
@@ -37,7 +37,7 @@ data class MainHomeUiState(
             isFavorite = false,
             imageRes = R.drawable.dummy3,
         ),
-        ProductModel(
+        HomeProductModel(
             productId = 4,
             storeName = "모던데이",
             productName = "핀턱 와이드 슬랙스",
@@ -46,7 +46,7 @@ data class MainHomeUiState(
             isFavorite = false,
             imageRes = R.drawable.dummy1,
         ),
-        ProductModel(
+        HomeProductModel(
             productId = 5,
             storeName = "디어룸",
             productName = "루즈핏 스트라이프 셔츠",
@@ -55,7 +55,7 @@ data class MainHomeUiState(
             isFavorite = true,
             imageRes = R.drawable.dummy2,
         ),
-        ProductModel(
+        HomeProductModel(
             productId = 6,
             storeName = "온더무드",
             productName = "베이직 라운드 긴팔 티셔츠",
@@ -64,7 +64,7 @@ data class MainHomeUiState(
             isFavorite = false,
             imageRes = R.drawable.dummy3,
         ),
-        ProductModel(
+        HomeProductModel(
             productId = 7,
             storeName = "데일리유",
             productName = "포근한 오버핏 니트 가디건",
@@ -76,16 +76,16 @@ data class MainHomeUiState(
     )
 )
 
-sealed interface MainHomeAction {
-    data class UserNameChanged(val name: String): MainHomeAction
+sealed interface HomeAction {
+    data class UserNameChanged(val name: String): HomeAction
 
-    data class MenuClicked(val menu: MainMenuType): MainHomeAction
+    data class MenuClicked(val menu: HomeMenuType): HomeAction
 
-    data class CategoryClicked(val category: MainCategoryType): MainHomeAction
+    data class CategoryClicked(val category: MainCategoryType): HomeAction
 
-    data class FavoriteClicked(val product: ProductModel): MainHomeAction
+    data class FavoriteClicked(val product: HomeProductModel): HomeAction
 }
 
-sealed interface MainHomeEffect{
-    data object ShowSearchScreen: MainHomeEffect
+sealed interface HomeEffect{
+    data object ShowSearchScreen: HomeEffect
 }
