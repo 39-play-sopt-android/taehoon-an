@@ -1,4 +1,4 @@
-package org.sopt.play.core.designsystem.components.textfield
+package org.sopt.play.presentation.search.component.textfield
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
