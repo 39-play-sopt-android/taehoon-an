@@ -15,7 +15,9 @@ data class PlaySoptTypography(
     val b28: TextStyle,
 
     // m
+    val m12: TextStyle,
     val m14: TextStyle,
+    val m16: TextStyle,
     val m18: TextStyle,
 
     // sb
@@ -63,10 +65,26 @@ val defaultPlaySoptTypography = PlaySoptTypography(
     ),
 
     //m
+    m12 = TextStyle(
+        fontFamily = pretendardFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 12.sp,
+        lineHeight = TypographyDefaults.MLineHeight,
+        letterSpacing = TypographyDefaults.MLetterSpacing
+    ),
+
     m14 = TextStyle(
         fontFamily = pretendardFontFamily,
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
+        lineHeight = TypographyDefaults.MLineHeight,
+        letterSpacing = TypographyDefaults.MLetterSpacing
+    ),
+
+    m16 = TextStyle(
+        fontFamily = pretendardFontFamily,
+        fontWeight = FontWeight.Medium,
+        fontSize = 16.sp,
         lineHeight = TypographyDefaults.MLineHeight,
         letterSpacing = TypographyDefaults.MLetterSpacing
     ),
