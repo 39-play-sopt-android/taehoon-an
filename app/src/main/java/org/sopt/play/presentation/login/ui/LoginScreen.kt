@@ -32,8 +32,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import org.sopt.play.PlayApplication
-import org.sopt.play.core.designsystem.components.PlaySoptPasswordTextField
-import org.sopt.play.core.designsystem.components.PlaySoptTextField
+import org.sopt.play.core.designsystem.components.textfield.PlaySoptPasswordTextField
+import org.sopt.play.core.designsystem.components.textfield.PlaySoptTextField
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 import org.sopt.play.presentation.login.component.LoginScreenBottomComponent
 import org.sopt.play.presentation.login.model.LoginInput

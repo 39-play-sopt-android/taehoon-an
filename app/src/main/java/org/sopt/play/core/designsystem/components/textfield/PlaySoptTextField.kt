@@ -1,4 +1,4 @@
-package org.sopt.play.core.designsystem.components
+package org.sopt.play.core.designsystem.components.textfield
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,7 +23,6 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import org.sopt.play.core.designsystem.components.textfield.PlaySoptTextFieldLayout
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 
 @Composable

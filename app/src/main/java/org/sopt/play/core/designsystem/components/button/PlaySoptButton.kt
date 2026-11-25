@@ -1,4 +1,4 @@
-package org.sopt.play.core.designsystem.components
+package org.sopt.play.core.designsystem.components.button
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
