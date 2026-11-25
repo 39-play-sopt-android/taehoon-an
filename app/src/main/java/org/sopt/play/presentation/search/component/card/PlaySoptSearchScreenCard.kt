@@ -26,6 +26,7 @@ fun PlaySoptSearchScreenCard(
     content: String,
     author: String,
     createdAt: String,
+    onClick: () -> Unit,
     onLongClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -37,8 +38,8 @@ fun PlaySoptSearchScreenCard(
             .clip(shape = RoundedCornerShape(20.dp))
             .background(color = PlaySoptTheme.colors.gray1)
             .combinedClickable(
-                onClick = {},
-                onLongClick = { onLongClick() },
+                onClick = onClick,
+                onLongClick = onLongClick,
             )
             .padding(all = 20.dp),
     ) {
@@ -89,6 +90,7 @@ private fun PlaySoptSearchScreenCardPreview() {
             content = "본문입니다.",
             author = "작성자",
             createdAt = "YYYY.MM.DD",
+            onClick = {},
             onLongClick = {},
             modifier = Modifier.fillMaxWidth()
         )
