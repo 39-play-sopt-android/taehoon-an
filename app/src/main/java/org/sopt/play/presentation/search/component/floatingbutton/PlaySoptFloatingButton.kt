@@ -2,7 +2,6 @@ package org.sopt.play.presentation.search.component.floatingbutton
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
@@ -51,12 +50,10 @@ fun PlaySoptFloatingButton(
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
-private fun PlaySoptFloatingButtonPreview() {
+private fun PlaySoptFloatingButton() {
     PlaySoptTheme {
-        Box(modifier = Modifier.padding(24.dp)) {
-            PlaySoptFloatingButton(onClick = {})
-        }
+        PlaySoptFloatingButton(onClick = {})
     }
 }
