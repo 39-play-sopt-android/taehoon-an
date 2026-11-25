@@ -77,7 +77,6 @@ data class HomeUiState(
 )
 
 sealed interface HomeAction {
-    data class UserNameChanged(val name: String): HomeAction
 
     data class MenuClicked(val menu: HomeMenuType): HomeAction
 

@@ -1,48 +1,16 @@
-package org.sopt.play.presentation.login.state
-
-import android.util.Patterns
-import androidx.compose.foundation.text.input.TextFieldState
-
 data class LoginUiState(
-    val emailState: TextFieldState = TextFieldState(),
-    val passwordState: TextFieldState = TextFieldState(),
+    val isCheckingSession: Boolean = true,
     val isLoading: Boolean = false,
     val errorMessage: String? = null,
-) {
-    val isEmailError: Boolean
-        get() {
-            val email = emailState.text.toString()
-
-            return email.isNotBlank() &&
-                    !Patterns.EMAIL_ADDRESS.matcher(email).matches()
-        }
-
-    val isPasswordError: Boolean
-        get() {
-            val password = passwordState.text
-
-            return password.isNotBlank() && password.length < 6
-        }
-
-    val isLoginEnabled: Boolean
-        get() = emailState.text.isNotBlank() &&
-                passwordState.text.isNotBlank() &&
-                !isEmailError &&
-                !isPasswordError &&
-                !isLoading
-}
+)
 
 sealed interface LoginAction {
-    data object LoginClicked: LoginAction
-
-    data object RegisterClicked: LoginAction
+    data object LoginClicked : LoginAction
+    data object RegisterClicked : LoginAction
+    data object ErrorMessageToast : LoginAction
 }
 
-sealed interface LoginEffect{
-    data class RequestLogin(
-        val email: String,
-        val password: String,
-    ) : LoginEffect
-
+sealed interface LoginEffect {
+    data object NavigateToHome : LoginEffect
     data object NavigateToRegister : LoginEffect
 }

@@ -13,15 +13,16 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import org.sopt.play.PlayApplication
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
-import org.sopt.play.data.model.UserModel
 import org.sopt.play.presentation.home.component.banner.HomeBannerRow
 import org.sopt.play.presentation.home.component.category.HomeCategoryRow
 import org.sopt.play.presentation.home.component.menu.HomeTabMenuRow
@@ -31,15 +32,27 @@ import org.sopt.play.presentation.home.state.HomeUiState
 
 @Composable
 fun HomeRoute(
-    user: UserModel?,
-    viewModel: HomeViewModel = viewModel(),
     modifier: Modifier = Modifier,
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val application = LocalContext.current.applicationContext
+            as PlayApplication
 
-    LaunchedEffect(viewModel) {
-        viewModel.onAction(HomeAction.UserNameChanged(user?.name ?: "김솝트"))
+    val factory = remember(application) {
+        HomeViewModelFactory(application.accountManager)
     }
+
+    HomeRouteContent(
+        modifier = modifier,
+        viewModel = viewModel(factory = factory)
+    )
+}
+
+@Composable
+fun HomeRouteContent(
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel,
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     HomeScreen(
         uiState = uiState,

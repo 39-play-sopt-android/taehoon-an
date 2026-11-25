@@ -14,9 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import org.sopt.play.R
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
-import org.sopt.play.data.model.UserModel
 import org.sopt.play.presentation.favorite.MainFavoriteScreen
-import org.sopt.play.presentation.home.ui.MainHomeRoute
+import org.sopt.play.presentation.home.ui.HomeRoute
 import org.sopt.play.presentation.main.component.MainScreenBottomBar
 import org.sopt.play.presentation.main.component.MainScreenTopBar
 import org.sopt.play.presentation.my.MainMyScreen
@@ -45,12 +44,10 @@ enum class MainTab(
 
 @Composable
 fun MainRoute(
-    user: UserModel?,
     onSearchClick:() -> Unit,
     modifier: Modifier = Modifier
 ) {
     MainScreen(
-        user = user,
         onSearchClick = onSearchClick,
         modifier = modifier.padding()
     )
@@ -58,10 +55,9 @@ fun MainRoute(
 
 @Composable
 fun MainScreen(
-    user: UserModel?,
+    modifier: Modifier = Modifier,
     onSearchClick:() -> Unit,
     tab: MainTab = MainTab.HOME,
-    modifier: Modifier = Modifier,
 ) {
     var selectedTab by remember { mutableStateOf(tab) }
 
@@ -84,8 +80,7 @@ fun MainScreen(
         }
     ) { innerPadding ->
         when (selectedTab) {
-            MainTab.HOME -> MainHomeRoute(
-                user = user,
+            MainTab.HOME -> HomeRoute(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
@@ -114,7 +109,6 @@ fun MainMyScreenPreview() {
             tab = MainTab.HOME,
             onSearchClick = {},
             modifier = Modifier.fillMaxSize(),
-            user = UserModel(name = "김솝트", email = "abc@email.com", password = "123456"),
             )
     }
 }

@@ -11,32 +11,23 @@ private val Context.loginDataStore by preferencesDataStore(
     name = "login_storage",
 )
 
-class LoginManager(context: Context) {
+class AccountManager(context: Context) {
     private val dataStore = context.applicationContext.loginDataStore
+
     private object Keys {
         val ID = stringPreferencesKey("id")
         val PASSWORD = stringPreferencesKey("password")
+        val NAME = stringPreferencesKey("name")
         val IS_LOGGED_IN = booleanPreferencesKey("is_logged_in")
     }
 
-    suspend fun saveLogin(id: String, password: String) {
+    suspend fun saveLogin(id: String, password: String, name: String) {
         dataStore.edit { preferences ->
             preferences[Keys.ID] = id
             preferences[Keys.PASSWORD] = password
+            preferences[Keys.NAME] = name
             preferences[Keys.IS_LOGGED_IN] = false
         }
-    }
-
-    suspend fun getLogin(): LoginCredentials? {
-        val preferences = dataStore.data.first()
-
-        val id = preferences[Keys.ID] ?: return null
-        val password = preferences[Keys.PASSWORD] ?: return null
-
-        return LoginCredentials(
-            id = id,
-            password = password,
-        )
     }
 
     suspend fun login(id: String, password: String): Boolean {
@@ -63,14 +54,7 @@ class LoginManager(context: Context) {
                 preferences[Keys.PASSWORD] != null
     }
 
-    suspend fun logout() {
-        dataStore.edit { preferences ->
-            preferences[Keys.IS_LOGGED_IN] = false
-        }
+    suspend fun getName(): String? {
+        return dataStore.data.first()[Keys.NAME]
     }
 }
-
-data class LoginCredentials(
-    val id: String,
-    val password: String,
-)

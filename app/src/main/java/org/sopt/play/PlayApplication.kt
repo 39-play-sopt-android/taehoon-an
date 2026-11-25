@@ -1,10 +1,10 @@
 package org.sopt.play
 
 import android.app.Application
-import org.sopt.play.core.local.login.LoginManager
+import org.sopt.play.core.local.login.AccountManager
 
 class PlayApplication : Application() {
-    val loginManager: LoginManager by lazy {
-        LoginManager(applicationContext)
+    val accountManager: AccountManager by lazy {
+        AccountManager(applicationContext)
     }
 }
