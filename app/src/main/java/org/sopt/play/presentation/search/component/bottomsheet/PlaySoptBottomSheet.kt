@@ -1,33 +1,30 @@
-package org.sopt.play.core.designsystem.components.bottomsheet
+package org.sopt.play.presentation.search.component.bottomsheet
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.text.input.InputTransformation
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
-import androidx.compose.foundation.text.input.maxLength
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import org.sopt.play.core.designsystem.components.button.PlaySoptButton
 import org.sopt.play.core.designsystem.components.textfield.PlaySoptTextField
@@ -41,7 +38,7 @@ fun PlaySoptBottomSheet(
     onDismissRequest: () -> Unit,
     onCompleteClick: () -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true,
+    enabled: Boolean = false,
 ) {
     val sheetState = rememberModalBottomSheetState(
         skipPartiallyExpanded = true,
@@ -52,8 +49,8 @@ fun PlaySoptBottomSheet(
         modifier = modifier,
         sheetState = sheetState,
         shape = RoundedCornerShape(
-            topStart = 28.dp,
-            topEnd = 28.dp,
+            topStart = 24.dp,
+            topEnd = 24.dp,
         ),
         containerColor = PlaySoptTheme.colors.white,
         scrimColor = Color.Black.copy(alpha = 0.4f),
@@ -64,8 +61,8 @@ fun PlaySoptBottomSheet(
         PlaySoptBottomSheetContent(
             titleState = titleState,
             contentState = contentState,
-            onCompleteClick = onCompleteClick,
             enabled = enabled,
+            onCompleteClick = onCompleteClick
         )
     }
 }
@@ -83,7 +80,7 @@ private fun BottomSheetHandle() {
                 .size(width = 36.dp, height = 4.dp)
                 .background(
                     color = PlaySoptTheme.colors.gray3,
-                    shape = RoundedCornerShape(2.dp),
+                    shape = CircleShape,
                 ),
         )
     }
@@ -93,25 +90,16 @@ private fun BottomSheetHandle() {
 private fun PlaySoptBottomSheetContent(
     titleState: TextFieldState,
     contentState: TextFieldState,
+    enabled: Boolean,
     onCompleteClick: () -> Unit,
     modifier: Modifier = Modifier,
-    enabled: Boolean = true,
 ) {
-    val isCompleteEnabled =
-        enabled &&
-                titleState.text.isNotBlank() &&
-                contentState.text.isNotBlank() &&
-                titleState.text.length <= 20 &&
-                contentState.text.length <= 1_000
-
     Column(
         modifier = modifier
             .fillMaxWidth()
             .verticalScroll(rememberScrollState())
             .padding(
-                start = 16.dp,
-                end = 16.dp,
-                bottom = 24.dp,
+                horizontal = 16.dp
             ),
     ) {
         PlaySoptTextField(
@@ -119,24 +107,20 @@ private fun PlaySoptBottomSheetContent(
             label = "제목",
             placeholder = "제목을 입력하세요.",
             keyboardType = KeyboardOptions.Default.keyboardType,
-            lineLimits = TextFieldLineLimits.,
             imeAction = ImeAction.Next,
-            enabled = enabled,
+            maxLength = 20,
         )
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(12.dp))
 
-        BottomSheetTextField(
+        PlaySoptTextField(
             state = contentState,
             label = "본문",
             placeholder = "본문을 입력하세요.",
-            maxLength = 1_000,
-            lineLimits = TextFieldLineLimits.MultiLine(
-                minHeightInLines = 1,
-                maxHeightInLines = 5,
-            ),
+            keyboardType = KeyboardOptions.Default.keyboardType,
             imeAction = ImeAction.Default,
-            enabled = enabled,
+            lineLimits = TextFieldLineLimits.MultiLine(),
+            maxLength = 1000,
         )
 
         Spacer(modifier = Modifier.height(20.dp))
@@ -144,7 +128,35 @@ private fun PlaySoptBottomSheetContent(
         PlaySoptButton(
             text = "완료",
             onClick = onCompleteClick,
-            enabled = isCompleteEnabled,
+            enabled = enabled,
         )
+    }
+}
+
+@Preview(showBackground = true, widthDp = 360)
+@Composable
+private fun PlaySoptBottomSheetPreview() {
+    val titleState = rememberTextFieldState()
+    val contentState = rememberTextFieldState()
+
+    PlaySoptTheme {
+        Column(
+            modifier = Modifier.background(
+                color = PlaySoptTheme.colors.white,
+                shape = RoundedCornerShape(
+                    topStart = 24.dp,
+                    topEnd = 24.dp,
+                ),
+            ),
+        ) {
+            BottomSheetHandle()
+
+            PlaySoptBottomSheetContent(
+                titleState = titleState,
+                contentState = contentState,
+                enabled = true,
+                onCompleteClick = {},
+            )
+        }
     }
 }
