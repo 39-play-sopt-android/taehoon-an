@@ -5,7 +5,3 @@ data class UserModel(
     val email: String,
     val password: String,
 )
-
-fun UserModel.compareToAccount(email : String, password : String): Boolean {
-    return this.email == email && this.password == password
-}

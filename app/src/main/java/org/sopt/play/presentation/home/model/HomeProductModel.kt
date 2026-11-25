@@ -2,7 +2,8 @@ package org.sopt.play.presentation.home.model
 
 import androidx.annotation.DrawableRes
 
-data class ProductModel(
+data class HomeProductModel(
+    val productId: Int,
     val storeName: String,
     val productName: String,
     val discountRate: Int,

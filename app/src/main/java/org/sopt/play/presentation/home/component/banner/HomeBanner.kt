@@ -19,7 +19,7 @@ import org.sopt.play.R
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 
 @Composable
-fun MainBannerRow(
+fun HomeBannerRow(
     modifier: Modifier = Modifier,
     imageList: List<Int> = listOf(
         R.drawable.img_banner1,
@@ -68,8 +68,8 @@ fun MainBannerRow(
 
 @Preview(showBackground = true)
 @Composable
-private fun MainBannerRowPreview() {
+private fun HomeBannerRowPreview() {
     PlaySoptTheme {
-        MainBannerRow()
+        HomeBannerRow()
     }
 }

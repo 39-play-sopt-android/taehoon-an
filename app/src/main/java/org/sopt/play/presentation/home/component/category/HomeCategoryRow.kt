@@ -30,7 +30,7 @@ enum class MainCategoryType(val title: String) {
 }
 
 @Composable
-fun MainCategoryRow(
+fun HomeCategoryRow(
     selectedCategory: MainCategoryType,
     onCategoryClick: (MainCategoryType) -> Unit,
     modifier: Modifier = Modifier,
@@ -43,7 +43,7 @@ fun MainCategoryRow(
         horizontalArrangement = Arrangement.spacedBy(6.dp),
     ) {
         MainCategoryType.entries.forEach { chip ->
-            MainCategoryChip(
+            HomeCategoryChip(
                 text = chip.title,
                 isSelected = selectedCategory == chip,
                 onClick = { onCategoryClick(chip) },
@@ -54,11 +54,11 @@ fun MainCategoryRow(
 
 @Preview(showBackground = true)
 @Composable
-private fun MainCategoryRowPreview() {
+private fun HomeCategoryRowPreview() {
     PlaySoptTheme {
         var selectedChip by remember { mutableStateOf(MainCategoryType.ALL) }
 
-        MainCategoryRow(
+        HomeCategoryRow(
             selectedCategory = selectedChip,
             onCategoryClick = { selectedChip = it },
         )

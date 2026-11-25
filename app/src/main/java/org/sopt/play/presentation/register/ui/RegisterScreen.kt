@@ -1,6 +1,5 @@
 package org.sopt.play.presentation.register.ui
 
-import android.util.Patterns
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -8,93 +7,106 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.text.input.TextFieldState
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.compose.LocalLifecycleOwner
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
+import org.sopt.play.PlayApplication
 import org.sopt.play.core.designsystem.components.PlaySoptButton
 import org.sopt.play.core.designsystem.components.PlaySoptPasswordTextField
 import org.sopt.play.core.designsystem.components.PlaySoptTextField
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
-import org.sopt.play.data.model.UserModel
+import org.sopt.play.presentation.register.model.RegisterInput
+import org.sopt.play.presentation.register.state.RegisterAction
+import org.sopt.play.presentation.register.state.RegisterEffect
+import org.sopt.play.presentation.register.state.RegisterUiState
 
 @Composable
 fun RegisterRoute(
+    navigateToLogin: () -> Unit,
     modifier: Modifier = Modifier,
-    onRegisterClick: (UserModel) -> Unit
 ) {
+    val application = LocalContext.current.applicationContext
+            as PlayApplication
+
+    val factory = remember(application) {
+        RegisterViewModelFactory(application.accountManager)
+    }
+
+    RegisterRouteContent(
+        navigateToLogin = navigateToLogin,
+        modifier = modifier,
+        viewModel = viewModel(factory = factory),
+    )
+}
+
+@Composable
+private fun RegisterRouteContent(
+    navigateToLogin: () -> Unit,
+    modifier: Modifier = Modifier,
+    viewModel: RegisterViewModel,
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val lifecycleOwner = LocalLifecycleOwner.current
+
+    LaunchedEffect(viewModel, lifecycleOwner) {
+        lifecycleOwner.lifecycle.repeatOnLifecycle(
+            Lifecycle.State.STARTED,
+        ) {
+            viewModel.effect.collect { effect ->
+                when (effect) {
+                    RegisterEffect.NavigateToLogin -> navigateToLogin()
+                }
+            }
+        }
+    }
+
     RegisterScreen(
-        onRegisterClick = onRegisterClick,
-        modifier = modifier
+        uiState = uiState,
+        nameState = viewModel.nameState,
+        emailState = viewModel.emailState,
+        passwordState = viewModel.passwordState,
+        passwordCheckState = viewModel.passwordCheckState,
+        onAction = viewModel::onAction,
+        modifier = modifier,
     )
 }
 
 @Composable
 fun RegisterScreen(
-    onRegisterClick: (UserModel) -> Unit,
+    uiState: RegisterUiState,
+    nameState: TextFieldState,
+    emailState: TextFieldState,
+    passwordState: TextFieldState,
+    passwordCheckState: TextFieldState,
+    onAction: (RegisterAction) -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    val nameState = rememberTextFieldState()
-    val emailState = rememberTextFieldState()
-    val passwordState = rememberTextFieldState()
-    val passwordCheckState = rememberTextFieldState()
     val focusManager = LocalFocusManager.current
 
-    val isEmailError by remember(emailState) {
-        derivedStateOf {
-            val email = emailState.text.toString()
-
-            email.isNotEmpty() &&
-                    !Patterns.EMAIL_ADDRESS.matcher(email).matches()
-        }
-    }
-
-    val isPasswordError by remember(passwordState) {
-        derivedStateOf {
-            val password = passwordState.text
-
-            password.isNotEmpty() && password.length < 6
-        }
-    }
-
-    val isPasswordCheckError by remember(passwordState, passwordCheckState) {
-        derivedStateOf {
-            val password = passwordState.text.toString()
-            val passwordCheck = passwordCheckState.text.toString()
-
-            passwordCheck.isNotEmpty() && passwordCheck != password
-        }
-    }
-
-    val isRegisterEnabled by remember(
-        nameState,
-        emailState,
-        passwordState,
-        passwordCheckState,
-    ) {
-        derivedStateOf {
-            nameState.text.isNotBlank() &&
-                    emailState.text.isNotEmpty() &&
-                    emailState.text.isNotBlank() &&
-                    passwordState.text.isNotEmpty() &&
-                    passwordState.text.isNotBlank() &&
-                    passwordCheckState.text.isNotEmpty() &&
-                    passwordCheckState.text.isNotBlank() &&
-                    !isEmailError &&
-                    !isPasswordError &&
-                    !isPasswordCheckError
-        }
-    }
+    val input = RegisterInput(
+        name = nameState.text.toString(),
+        email = emailState.text.toString(),
+        password = passwordState.text.toString(),
+        passwordCheck = passwordCheckState.text.toString(),
+    )
 
     Scaffold(
         modifier = modifier.fillMaxSize(),
@@ -137,7 +149,7 @@ fun RegisterScreen(
                     placeholder = "abc@email.com",
                     keyboardType = KeyboardType.Email,
                     imeAction = ImeAction.Next,
-                    isError = isEmailError,
+                    isError = input.isEmailError,
                     errorLabel = "올바른 이메일을 입력해주세요.",
                 )
 
@@ -148,7 +160,7 @@ fun RegisterScreen(
                     label = "비밀번호",
                     placeholder = "6자 이상의 비밀번호",
                     imeAction = ImeAction.Next,
-                    isError = isPasswordError,
+                    isError = input.isPasswordError,
                     errorLabel = "비밀번호는 6자 이상 입력해주세요.",
                 )
 
@@ -163,7 +175,7 @@ fun RegisterScreen(
                         focusManager.clearFocus()
                     },
                     imeAction = ImeAction.Done,
-                    isError = isPasswordCheckError,
+                    isError = input.isPasswordCheckError,
                     errorLabel = "비밀번호와 동일하게 입력해주세요.",
                 )
             }
@@ -175,16 +187,10 @@ fun RegisterScreen(
                     bottom = 16.dp,
                 ),
                 onClick = {
-                    onRegisterClick(
-                        UserModel(
-                            name = nameState.text.toString(),
-                            email = emailState.text.toString(),
-                            password = passwordState.text.toString()
-                        )
-
-                    )
+                    focusManager.clearFocus()
+                    onAction(RegisterAction.RegisterClicked)
                 },
-                enabled = isRegisterEnabled
+                enabled = input.isValid && !uiState.isLoading,
             )
         }
     }
@@ -193,10 +199,20 @@ fun RegisterScreen(
 @Preview(showBackground = true)
 @Composable
 fun RegisterScreenPreview() {
+    val nameState = rememberTextFieldState()
+    val emailState = rememberTextFieldState()
+    val passwordState = rememberTextFieldState()
+    val passwordCheckState = rememberTextFieldState()
+
     PlaySoptTheme {
         RegisterScreen(
+            uiState = RegisterUiState(),
+            nameState = nameState,
+            emailState = emailState,
+            passwordState = passwordState,
+            passwordCheckState = passwordCheckState,
+            onAction = {},
             modifier = Modifier.fillMaxSize(),
-            onRegisterClick = { _ -> }
         )
     }
 }
