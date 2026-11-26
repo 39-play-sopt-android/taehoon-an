@@ -7,12 +7,12 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.sopt.play.core.local.login.AccountManager
+import org.sopt.play.core.local.login.LoginManager
 import org.sopt.play.presentation.home.state.HomeAction
 import org.sopt.play.presentation.home.state.HomeUiState
 
 class HomeViewModel(
-    private val accountManager: AccountManager,
+    private val accountManager: LoginManager,
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()

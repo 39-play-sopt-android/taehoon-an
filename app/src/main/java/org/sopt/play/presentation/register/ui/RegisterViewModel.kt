@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.sopt.play.core.local.login.AccountManager
+import org.sopt.play.core.local.login.LoginManager
 import org.sopt.play.presentation.register.model.RegisterInput
 import org.sopt.play.presentation.register.state.RegisterAction
 import org.sopt.play.presentation.register.state.RegisterEffect
@@ -17,7 +17,7 @@ import org.sopt.play.presentation.register.state.RegisterUiState
 import java.io.IOException
 
 class RegisterViewModel(
-    private val accountManager: AccountManager,
+    private val accountManager: LoginManager,
 ) : ViewModel() {
 
     val nameState = TextFieldState()

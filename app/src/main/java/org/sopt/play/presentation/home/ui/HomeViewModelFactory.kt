@@ -2,10 +2,10 @@ package org.sopt.play.presentation.home.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import org.sopt.play.core.local.login.AccountManager
+import org.sopt.play.core.local.login.LoginManager
 
 class HomeViewModelFactory(
-    private val accountManager: AccountManager,
+    private val accountManager: LoginManager,
 ) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

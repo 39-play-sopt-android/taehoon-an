@@ -48,7 +48,10 @@ fun LoginRoute(
             as PlayApplication
 
     val factory = remember(application) {
-        LoginViewModelFactory(application.accountManager)
+        LoginViewModelFactory(
+            application.loginManager,
+            application.loginRepository
+            )
     }
 
     LoginRouteContent(
