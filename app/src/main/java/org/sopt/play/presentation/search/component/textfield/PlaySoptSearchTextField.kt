@@ -40,7 +40,7 @@ fun PlaySoptSearchTextField(
     modifier: Modifier = Modifier,
     placeholder: String = "",
     keyboardType: KeyboardType = KeyboardType.Text,
-    imeAction: ImeAction = ImeAction.Default,
+    imeAction: ImeAction = ImeAction.Search,
     onKeyboardAction: KeyboardActionHandler? = null,
     lineLimits: TextFieldLineLimits = TextFieldLineLimits.SingleLine,
 ) {
@@ -61,7 +61,9 @@ fun PlaySoptSearchTextField(
             keyboardType = keyboardType,
             imeAction = imeAction,
         ),
-        onKeyboardAction = onKeyboardAction,
+        onKeyboardAction = onKeyboardAction ?: KeyboardActionHandler { _ ->
+            onSearchClick()
+        },
         lineLimits = lineLimits,
         textStyle = textFieldTextStyle.copy(color = PlaySoptTheme.colors.gray5),
         decorator = { innerTextField ->
