@@ -30,12 +30,14 @@ interface SearchService {
 
     @PUT("posts/{postId}")
     suspend fun editPost(
+        @Header("Authorization") authorizationCode: String,
         @Path ("postId") postId: Long,
         @Body request: PostEditRequest
     ) : BaseResponse<PostResponse>
 
     @DELETE("posts/{postId}")
     suspend fun deletePost(
+        @Header("Authorization") authorizationCode: String,
         @Path ("postId") postId: Long,
     ) : BaseResponse<String>
 }

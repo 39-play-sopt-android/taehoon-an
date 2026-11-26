@@ -33,19 +33,23 @@ class SearchDataSource(
     }
 
     suspend fun editPost(
+        authorizationCode: String,
         postId: Long,
         request: PostEditRequest,
     ): BaseResponse<PostResponse> {
         return service.editPost(
+            authorizationCode = authorizationCode,
             postId = postId,
             request = request,
         )
     }
 
     suspend fun deletePost(
+        authorizationCode: String,
         postId: Long,
     ): BaseResponse<String> {
         return service.deletePost(
+            authorizationCode = authorizationCode,
             postId = postId,
         )
     }

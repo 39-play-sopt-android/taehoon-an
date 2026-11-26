@@ -21,4 +21,9 @@ sealed interface SearchAction {
     data object SubmitClicked : SearchAction
     data object PostModalDismissed : SearchAction
     data object DeleteConfirmed : SearchAction
+    data object ErrorMessageShown : SearchAction
+}
+
+sealed interface SearchEffect {
+    data class ScrollToTop(val firstPostId: Long) : SearchEffect
 }

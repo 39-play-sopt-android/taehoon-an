@@ -12,6 +12,6 @@ class LoginRepositoryImpl(
     ): String {
         return dataSource.issueAuthorizationCode(
             request = AuthorizationCodeRequest(part = part),
-        ).data.authorizationCode
+        ).data?.authorizationCode?: throw IllegalStateException("인증 코드가 없습니다.")
     }
 }

@@ -38,7 +38,7 @@ fun HomeRoute(
             as PlayApplication
 
     val factory = remember(application) {
-        HomeViewModelFactory(application.accountManager)
+        HomeViewModelFactory(application.loginManager)
     }
 
     HomeRouteContent(

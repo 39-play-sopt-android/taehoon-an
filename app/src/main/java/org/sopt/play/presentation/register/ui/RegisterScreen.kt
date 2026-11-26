@@ -47,7 +47,7 @@ fun RegisterRoute(
             as PlayApplication
 
     val factory = remember(application) {
-        RegisterViewModelFactory(application.accountManager)
+        RegisterViewModelFactory(application.loginManager)
     }
 
     RegisterRouteContent(

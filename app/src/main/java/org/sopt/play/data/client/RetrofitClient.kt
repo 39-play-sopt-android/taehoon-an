@@ -1,8 +1,10 @@
 package org.sopt.play.data.client
 
+import android.util.Log
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.sopt.play.BuildConfig
 import org.sopt.play.data.service.LoginService
 import org.sopt.play.data.service.SearchService
@@ -15,7 +17,29 @@ object RetrofitClient {
         ignoreUnknownKeys = true
     }
 
+    private val loggingInterceptor = HttpLoggingInterceptor { message ->
+        Log.d("ApiLog", message)
+    }.apply {
+        level = if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor.Level.BODY
+        } else {
+            HttpLoggingInterceptor.Level.NONE
+        }
+
+        redactHeader("Authorization")
+    }
+
     private val client = OkHttpClient.Builder()
+        .addInterceptor { chain ->
+            if (
+                chain.request().url.encodedPath
+                    .endsWith("/members/authorization-code")
+            ) {
+                chain.proceed(chain.request())
+            } else {
+                loggingInterceptor.intercept(chain)
+            }
+        }
         .build()
 
     private val retrofit: Retrofit by lazy {

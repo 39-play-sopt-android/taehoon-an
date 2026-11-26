@@ -22,7 +22,7 @@ class SearchRepositoryImpl(
             keyword = keyword,
             cursor = cursor,
             size = size,
-        ).data.toModel()
+        ).data?.toModel() ?: throw IllegalStateException("data가 없습니다")
 
     override suspend fun createPost(
         request: PostCreateRequest,
@@ -33,19 +33,33 @@ class SearchRepositoryImpl(
         return dataSource.createPost(
             authorizationCode = authorizationCode,
             request = request,
-        ).data.toModel()
+        ).data?.toModel() ?: throw IllegalStateException("data가 없습니다")
     }
 
     override suspend fun editPost(
         postId: Long,
         request: PostEditRequest,
-    ): Post =
-        dataSource.editPost(
+    ): Post {
+        val authorizationCode = loginManager.getAuthorizationCode()
+            ?: throw IllegalStateException("인증 코드가 없습니다.")
+
+        return dataSource.editPost(
+            authorizationCode = authorizationCode,
             postId = postId,
             request = request,
-        ).data.toModel()
+        ).data?.toModel() ?: throw IllegalStateException("data가 없습니다")
+    }
 
-    override suspend fun deletePost(postId: Long) {
-        dataSource.deletePost(postId = postId)
+
+    override suspend fun deletePost(
+        postId: Long
+    ) {
+        val authorizationCode = loginManager.getAuthorizationCode()
+            ?: throw IllegalStateException("인증 코드가 없습니다.")
+
+        dataSource.deletePost(
+            authorizationCode = authorizationCode,
+            postId = postId
+        )
     }
 }
