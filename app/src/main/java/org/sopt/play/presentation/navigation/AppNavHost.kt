@@ -9,7 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import org.sopt.play.presentation.login.ui.LoginRoute
 import org.sopt.play.presentation.main.ui.MainRoute
 import org.sopt.play.presentation.register.ui.RegisterRoute
-import org.sopt.play.presentation.search.SearchRoute
+import org.sopt.play.presentation.search.ui.SearchRoute
 
 @Composable
 fun AppNavHost() {
