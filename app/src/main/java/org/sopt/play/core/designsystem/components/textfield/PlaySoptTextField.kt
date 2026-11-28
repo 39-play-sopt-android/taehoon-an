@@ -1,4 +1,4 @@
-package org.sopt.play.core.designsystem.components
+package org.sopt.play.core.designsystem.components.textfield
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.text.input.InputTransformation
 import androidx.compose.foundation.text.input.KeyboardActionHandler
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.TextFieldState
+import androidx.compose.foundation.text.input.maxLength
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -23,7 +25,6 @@ import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import org.sopt.play.core.designsystem.components.textfield.PlaySoptTextFieldLayout
 import org.sopt.play.core.designsystem.theme.PlaySoptTheme
 
 @Composable
@@ -36,6 +37,7 @@ fun PlaySoptTextField(
     imeAction: ImeAction = ImeAction.Default,
     onKeyboardAction: KeyboardActionHandler? = null,
     lineLimits: TextFieldLineLimits = TextFieldLineLimits.SingleLine,
+    maxLength: Int? = null,
     isError: Boolean = false,
     errorLabel: String? = null,
 ) {
@@ -46,6 +48,9 @@ fun PlaySoptTextField(
         isError -> PlaySoptTheme.colors.red
         isFocused -> PlaySoptTheme.colors.gray5
         else -> PlaySoptTheme.colors.gray2
+    }
+    val inputTransformation = remember(maxLength) {
+        maxLength?.let { InputTransformation.maxLength(it) }
     }
 
     PlaySoptTextFieldLayout(
@@ -62,6 +67,7 @@ fun PlaySoptTextField(
                 .clip(shape)
                 .background(PlaySoptTheme.colors.white)
                 .border(width = 2.dp, color = borderColor, shape = shape),
+            inputTransformation = inputTransformation,
             keyboardOptions = KeyboardOptions(
                 keyboardType = keyboardType,
                 imeAction = imeAction,

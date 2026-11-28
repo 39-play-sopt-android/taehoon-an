@@ -1,4 +1,4 @@
-package org.sopt.play.data.model
+package org.sopt.play.data.dto
 
 data class UserModel(
     val name: String? = null,

@@ -11,7 +11,7 @@ private val Context.loginDataStore by preferencesDataStore(
     name = "login_storage",
 )
 
-class AccountManager(context: Context) {
+class LoginManager(context: Context) {
     private val dataStore = context.applicationContext.loginDataStore
 
     private object Keys {
@@ -19,6 +19,7 @@ class AccountManager(context: Context) {
         val PASSWORD = stringPreferencesKey("password")
         val NAME = stringPreferencesKey("name")
         val IS_LOGGED_IN = booleanPreferencesKey("is_logged_in")
+        val AUTHORIZATION_CODE = stringPreferencesKey("authorization_code")
     }
 
     suspend fun saveLogin(id: String, password: String, name: String) {
@@ -31,19 +32,10 @@ class AccountManager(context: Context) {
     }
 
     suspend fun login(id: String, password: String): Boolean {
-        var success = false
+        val preferences = dataStore.data.first()
 
-        dataStore.edit { preferences ->
-            success =
-                preferences[Keys.ID] == id &&
-                        preferences[Keys.PASSWORD] == password
-
-            if (success) {
-                preferences[Keys.IS_LOGGED_IN] = true
-            }
-        }
-
-        return success
+        return preferences[Keys.ID] == id &&
+                preferences[Keys.PASSWORD] == password
     }
 
     suspend fun isLoggedIn(): Boolean {
@@ -51,10 +43,22 @@ class AccountManager(context: Context) {
 
         return preferences[Keys.IS_LOGGED_IN] == true &&
                 preferences[Keys.ID] != null &&
-                preferences[Keys.PASSWORD] != null
+                preferences[Keys.PASSWORD] != null &&
+                !preferences[Keys.AUTHORIZATION_CODE].isNullOrBlank()
     }
 
     suspend fun getName(): String? {
         return dataStore.data.first()[Keys.NAME]
+    }
+
+    suspend fun saveAuthorizationCode(code: String) {
+        dataStore.edit { preferences ->
+            preferences[Keys.AUTHORIZATION_CODE] = code
+            preferences[Keys.IS_LOGGED_IN] = true
+        }
+    }
+
+    suspend fun getAuthorizationCode(): String? {
+        return dataStore.data.first()[Keys.AUTHORIZATION_CODE]
     }
 }

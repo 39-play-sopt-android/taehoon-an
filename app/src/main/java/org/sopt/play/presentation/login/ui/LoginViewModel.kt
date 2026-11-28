@@ -12,12 +12,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import org.sopt.play.core.local.login.AccountManager
+import org.sopt.play.core.local.login.LoginManager
+import org.sopt.play.data.repository.login.LoginRepository
 import org.sopt.play.presentation.login.model.LoginInput
 import java.io.IOException
 
 class LoginViewModel(
-    private val accountManager: AccountManager
+    private val accountManager: LoginManager,
+    private val loginRepository: LoginRepository,
 ) : ViewModel() {
     val emailState = TextFieldState()
     val passwordState = TextFieldState()
@@ -73,17 +75,23 @@ class LoginViewModel(
                     password = input.password,
                 )
 
-                if (success) {
-                    _effect.send(LoginEffect.NavigateToHome)
-                } else {
+                if (!success) {
                     _uiState.update {
                         it.copy(
                             isLoading = false,
-                            errorMessage =
-                                "이메일 또는 비밀번호가 올바르지 않아요.",
+                            errorMessage = "이메일 또는 비밀번호가 올바르지 않아요.",
                         )
                     }
+                    return@launch
                 }
+
+                val authorizationCode = loginRepository.issueAuthorizationCode(
+                    part = "ANDROID",
+                )
+
+                accountManager.saveAuthorizationCode(authorizationCode)
+
+                _effect.send(LoginEffect.NavigateToHome)
             } catch (e: IOException) {
                 _uiState.update {
                     it.copy(
